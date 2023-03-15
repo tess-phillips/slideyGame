@@ -209,3 +209,45 @@
  playerReset();  
  updateScore();  
  update();  
+
+//  The first line of code "use strict"; is used to enable strict mode in JavaScript. This mode helps developers write more secure and optimized code.
+
+// The next line const canvas = document.getElementById("slidey"); creates a reference to the HTML canvas element with the ID "slidey".
+
+// const context = canvas.getContext("2d"); creates a 2D rendering context for the canvas.
+
+// context.scale(20, 20); sets the scaling factor for the canvas rendering context to 20.
+
+// arenaSweep() is a function that checks for complete rows in the game board and removes them from the board.
+
+// collide(arena, player) is a function that checks if a piece collides with the game board or another piece.
+
+// createMatrix(w, h) is a function that creates a matrix (a two-dimensional array) with width w and height h, initialized to all 0s.
+
+// createPiece(type) is a function that creates a piece with the specified type.
+
+// drawMatrix(matrix, offset) is a function that draws a matrix on the canvas at the specified offset.
+
+// draw() is a function that clears the canvas, draws the game board and the current piece.
+
+// merge(arena, player) is a function that merges the current piece with the game board.
+
+// playerDrop() is a function that moves the current piece down and merges it with the game board if it collides with something.
+
+// playerMove(offset) is a function that moves the current piece horizontally by the specified offset.
+
+// playerReset() is a function that resets the game after a piece has been merged with the game board.
+
+// playerRotate(dir) is a function that rotates the current piece in the specified direction.
+
+// let dropCounter = 0; is a variable that keeps track of the elapsed time since the last drop.
+
+// let dropInterval = 1000; is a variable that sets the drop interval (how often a piece should drop).
+
+// let lastTime = 0; is a variable that keeps track of the last time the game was updated.
+
+// update(time = 0) is the game loop that updates the game state, draws the game and schedules the next update.
+
+// updateScore() updates the score on the HTML page.
+
+// document.addEventListener("keydown", (event) => {...} listens for keyboard events and updates the game state accordingly. The arrow keys are used to move the current piece horizontally and down, and the space key is used to rotate the current piece.
