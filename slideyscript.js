@@ -3,8 +3,6 @@
  const context = canvas.getContext("2d");  
  context.scale(20, 20);
 
-
- 
 // function createMatrix(w, h) { //  is a function that creates a matrix (a two-dimensional array) with width w and height h, initialized to all 0s.
 //     var matrix = [];  
 //     while (h--) {  
@@ -15,7 +13,9 @@
 // }
 
 
-function generateRow(){
+function generateRow(){ //can make this shorter with || 
+    //can add the "non-empty clause to this function so all new rows not full" 
+    // i.e  if (i>7 && fullRowCheck(row)=="notFull") {return row;} else {return }
     var i=0;
     var row = [];
     var randomNum= Math.floor(Math.random()*5);
@@ -74,6 +74,21 @@ function generateRow(){
     if (i>7) {return row;}
 }
 
+function generateRowNotFull(){
+    var notFull = false;
+    var zeroCount = 0;
+    var row = generateRow();
+    while (notFull==false){
+    for (let i=0; i<7;i++){
+        if (row[i]==0){
+        zeroCount += 1;}
+    }
+    if (zeroCount == 8 || zeroCount == 0){
+        row = generateRow()}
+    else {notFull == true;
+        return row}
+    }
+}   
 
 function fullRowCheck(arena){ //arena[y][x]
     //checks the arena for any full rows to be deleted
@@ -85,38 +100,117 @@ function fullRowCheck(arena){ //arena[y][x]
             }
         }
         if (rowCount ==8){
+            //return y
+            colouring(arena)
             return y
         }
-
     }
+    colouring(arena)
     return "notFull"
 }
 
 function deleteRow(arena, fullRow){
-    //given there is a full row somewhere in the arena, delete it
-    while (fullRow>0) {
-        arena[fullRow]=arena[fullRow-1];
-        fullRow -=1;
+    console.log(arena)
+    arena[fullRow]=[0,0,0,0,0,0,0,0];
+    for (let i=fullRow;i>0;i--){
+        arena[i]=arena[i-1];
+        arena[i-1]=[0,0,0,0,0,0,0,0];
     }
-    arena[0]=[0,0,0,0,0,0,0,0];
+    // arena[10]=generateRow();
+    console.log("row deleted")
+    return arena
 }
 
 function fillDown(arena){
-    var fullRow= fullRowCheck(arena);
-    if (fullRow !== "notFull"){
-        alert("something not right")
+    // var fullRow= fullRowCheck(arena);
+    // if (fullRow !== "notFull"){
+    //     alert("something not right")
+    // }
+    var doneSomething = false;//may need to go through and delete if don't end up using it
+    for (let y=0; y< 9; y++) {
+        for (let x=0; x< 8; x++){ 
+            if (arena[y][x] ==1 && arena[y+1][x]==0){
+                arena[y+1][x]=arena[y][x];
+                arena[y][x]=0;
+                doneSomething =true;
+             }
+            if (arena[y][x] ==2 && arena[y][x+1]==2 && arena[y+1][x]==0&& arena[y+1][x+1]==0){
+                arena[y+1][x]=arena[y][x];
+                arena[y+1][x+1]=arena[y][x]
+                arena[y][x]=0;
+                arena[y][x+1]=0;
+                x+=1;
+                doneSomething =true;
+            }
+            if (arena[y][x] ==3 && arena[y][x+1]==3 && arena[y][x+2]==3 && arena[y+1][x]==0&& arena[y+1][x+1]==0&& arena[y+1][x+2]==0){
+                arena[y+1][x]=arena[y][x];
+                arena[y+1][x+1]=arena[y][x];
+                arena[y+1][x+2]=arena[y][x];
+                arena[y][x]=0;
+                arena[y][x+1]=0;
+                arena[y][x+2]=0;
+                x+=2;
+                doneSomething =true;
+            }
+            if (arena[y][x] ==4 && arena[y][x+1]==4 && arena[y][x+2]==4 && arena[y][x+3]==4 && arena[y+1][x]==0&& arena[y+1][x+1]==0&& arena[y+1][x+2]==0&& arena[y+1][x+3]==0){
+                arena[y+1][x]=arena[y][x];
+                arena[y+1][x+1]=arena[y][x];
+                arena[y+1][x+2]=arena[y][x];
+                arena[y+1][x+3]=arena[y][x];
+                arena[y][x]=0;
+                arena[y][x+1]=0;
+                arena[y][x+2]=0;
+                arena[y][x+3]=0;
+                x+=3;
+                doneSomething =true;
+            }
+            }
     }
-    // row 10 is bottom so can't fall
-    // row 11 bottom of user interface so can't fall
-    // can row 9 fall into 10? 
-        // either empty (move to higher row)
-        // can't fall into (move to higher row)
-        // 9 can fall into 10
-            // fall 9 into 10
-            // check 10 to see if delete
-                //if delete bring everything above down
-            //does 8 move because of this? if so
+    // setTimeout(() => {
+    //     colouring(arena)
+    //     var a="blah",b="blah";
+    //     setTimeout(() => {
+    //         if (doneSomething ==true){
+    //             [a,b]=fullRowCheckAndDelete(arena)
+    //             arena = a;
+    //         } 
+    //     }, 1000);
+    // }, 1000);
+
+    if (doneSomething==true){console.log("filled down")}
+    return arena
 }   
+
+function colouring(arena){
+    arena.forEach((row, y) => {  
+    row.forEach((value, x) => {  
+        if (value !== 0 && y !== 10) {  
+        context.fillStyle = colours[value][0];  
+        context.fillRect(x, y, 1, 1);  }
+      else if (value !== 0 && y == 10) {
+        context.fillStyle = "#A9a9a9";  
+        context.fillRect(x, y, 1, 1);
+    }
+    else{ context.fillStyle = "#202028";  
+    context.fillRect(x, y, 1, 1);
+
+    }
+    });  
+    });  
+    return arena
+}
+
+function moveDone(arena){
+    arena = fillDown(arena);
+    var check = fullRowCheck(arena);
+    while (check !=="notFull"){
+        console.log(check,"not full check")
+        arena = deleteRow(arena,check);
+        arena = fillDown(arena);
+        check = fullRowCheck(arena);
+    }
+}
+
 
 function start(){
     var arena = [[0, 0, 0, 0, 0, 0, 0, 0],
@@ -130,18 +224,27 @@ function start(){
                 [0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0]]
-    for (let a=8; a<11;a++){
-        arena[a]=generateRow();
-        var fullRow= fullRowCheck(arena);
-        while (fullRow !== "notFull"){
-            arena[a]=generateRow();
-            fullRow = fullRowCheck(arena);
-        }
-    }
-    console.log(arena)
+    for (let a=8; a<11;a++){ //gives 3 non empty rows
+        arena[a]=generateRowNotFull();}
+    colouring(arena);
+    moveDone(arena);
+    colouring(arena);
 }
 
+const colours = [  
+    null,  
+    ["#FF0D72", "#ff5a9f"],
+    ["#0DC2FF",  "#5ad5ff"],
+    ["#0DFF72", "#5aff9f"], 
+    // "#F538FF",  
+    ["#FF8E0D",  "#ffb25a"]
+    // "#FFE138",  
+    // "#3877FF",  
+   ];  
+
 start()
+
+
 
 //  const player = {  
 //   pos: { x: 0, y: 0 },  
