@@ -183,8 +183,10 @@ function fillDown(arena){
 
 function colouring(arena){
     arena.forEach((row, y) => {  
-    row.forEach((value, x) => {  
+    row.forEach((value, x) => { 
         if (value !== 0 && y !== 10) {  
+
+
         context.fillStyle = colours[value][0];  
         context.fillRect(x, y, 1, 1);  }
       else if (value !== 0 && y == 10) {
@@ -211,6 +213,47 @@ function moveDone(arena){
     }
 }
 
+function slide(btnID,arena){
+    var x= btnID[4];
+    var y = btnID[6];
+    console.log(x,y,arena[y][x])
+    
+    // var el = document.getElementById("${btnID}")
+    // el.addEventListener
+    // if (arena[y][x]==1)
+
+    //if value of clickedSqaure is 1
+        // if clickedSqaure index is > hoveringSquare index (i.e. clicked square on right)
+            // from clickedSquare to hoveringSquare (i to i-1 moving left) check if the all of the sqaures value is 0
+                // if true change colouring so that you are adding a lighter version colour of the value of the clicked Square to the hoveringSquare
+        // else do same but otherway 
+    // if value of clickedSquare is 2,3,4 
+        // do later
+
+}
+
+// function clicking(arena){
+
+//     }
+
+function dragStart(){
+    console.log(this.id,"dragstart")
+}
+function dragEnd(){
+    console.log(this.id,"dragend")
+}
+function dragOver(){
+    console.log(this.id,"dragover")
+}
+function dragEnter(){
+    console.log(this.id,"dragenter")
+}
+function dragLeave(){
+    console.log(this.id,"dragleave")
+}
+function drop(){
+    console.log(this.id,"drop")
+}
 
 function start(){
     var arena = [[0, 0, 0, 0, 0, 0, 0, 0],
@@ -224,12 +267,70 @@ function start(){
                 [0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0]]
+    //create initial rows
     for (let a=8; a<11;a++){ //gives 3 non empty rows
         arena[a]=generateRowNotFull();}
     colouring(arena);
     moveDone(arena);
-    colouring(arena);
+
+    //make button for each square
+    const buttonArea = document.getElementById("buttonArea")
+    const squares = [];
+    // buttonArea.styles ="padding:0;margin:0"
+    arena.forEach((row, y) => { 
+        const btnrow = document.createElement("div");
+        btnrow.id =`btnrow-${y}`
+        // btnrow.styles ="padding:0;margin:0"
+    row.forEach((value, x) => { 
+        var btn = document.createElement("div");
+        // btn.class = "buttonSize";
+        btn.style = "height:7.7vh;width:7.7vh"
+        btn.type = "button";
+        btn.id = `btn-${x}-${y}`;
+
+        // btn.onclick = function() {slide(btn.id,arena)}
+        // btn.onmousedown = function() {
+        //     slide(btn.id,arena);}
+
+
+
+        // btn.position = "absolute";
+        // var upPos = 220*((10-y)/10)
+        // btn.top = `${upPos}px`;
+        // var acrossPos = 160*((x-7)/7)
+        // btn.left=`${acrossPos}px`
+        btn.title ="."; //assign this later one
+        squares.push(btn);
+        btnrow.appendChild(btn);
+        // btn.addEventListener('dragstart',dragStart)
+        // btn.addEventListener('dragend',dragEnd)
+        // btn.addEventListener('dragover',dragOver)
+        // btn.addEventListener('dragenter',dragEnter)
+        // btn.addEventListener('dragleave',dragLeave)
+        // btn.addEventListener('drop',drop)
+    });
+    if (y!=10){buttonArea.appendChild(btnrow)}
+    });
+
+    // console.log(but)
+    squares.forEach(btn =>btn.addEventListener('dragstart',dragStart)
+    )
+    squares.forEach(btn =>         btn.addEventListener('dragend',dragEnd)
+    )
+    squares.forEach(btn =>         btn.addEventListener('dragover',dragOver)
+    )
+    squares.forEach(btn =>         btn.addEventListener('dragenter',dragEnter)
+    )
+    squares.forEach(btn =>         btn.addEventListener('dragleave',dragLeave)
+    )
+    squares.forEach(btn =>         btn.addEventListener('drop',drop)
+    )
+    console.log(arena)
+    // 
 }
+
+
+
 
 const colours = [  
     null,  
