@@ -3,10 +3,9 @@ const grid = document.querySelector('.grid');
 const width = 8;
 const height = 10;
 const squares = [];
+const arena = [];
 let score=0;
-// for (let i=0;i<height;i++){
-//     const `squares-$height` = [];
-// }
+
 var colours = [  
     ['grey','grey'] ,
     ["#FF0D72", "#D3D3D3"],
@@ -105,34 +104,35 @@ function generateRowNotFull(){
     if (zeroCount == 8 || zeroCount == 0){
         row = generateRow()}
     else {
-        notFull == true;
+        notFull = true;
         return row}
     }
 }   
 
 function squares2arena(){
-    var row=[];
-    var arena=[];
-    var counter=0;
-    var x=0;
-    while (counter<squares.length){
-        for (let i = counter; i < counter+8; i++){
-            x=squares[i].className;
-            row.push(x)
+    var row=[]; 
+    console.log(arena)
+    // console.log(arena,"before")
+    let arenabefore = arena;
+    var value=0;
+    for (let counter=0; counter<height;counter++){
+        for (let i = 0; i <width; i++){
+            value=squares[(counter*8)+i].className;
+            row.push(value)
         }
-        arena.push(row);
+        arena[counter]=row;
         row=[];
-        counter=counter+8;
     }
-    // arena = [arena];
-    return arena
+
+    if (arenabefore == arena){
+        console.log("no change in arena")
+    } else {console.log("change in arena")}
 }
 
-function arena2squares(arena){
-    //squares = arena.flat();
-    console.log(arena)
+function arena2squares(){
+    // console.log(arena,"arena2squares start")
     var squareColouring = arena.flat(Infinity) 
-    for (let i=0;i<length.arena;i++){
+    for (let i=0;i<arena.length ;i++){
         // squares[i].setAttribute("id",i)
         squares[i].className = squareColouring[i];
         squares[i].style.backgroundColor = colours[squareColouring[i]][0]
@@ -148,7 +148,7 @@ function arena2squares(arena){
 }
 
  function fullRowCheck(){ //arena[y][x]
-    var arena = squares2arena();
+    squares2arena();
     //checks the arena for any full rows to be deleted
     for (let y=0; y< height; y++) {
         var rowCount =0;
@@ -160,15 +160,17 @@ function arena2squares(arena){
         if (rowCount ==width){
             //return y
             // colouring(arena)
+            console.log("fullRowCheck",y)
             return y
         }
     }
     // colouring(arena)
+    console.log("fullRowCheck","notFull")
     return "notFull"
 }
 
 function deleteRow(fullRow){
-    var arena = squares2arena(squares);
+    squares2arena();
     // console.log(arena)
     arena[fullRow]=[0,0,0,0,0,0,0,0];
     for (let i=fullRow;i>0;i--){
@@ -176,7 +178,7 @@ function deleteRow(fullRow){
         arena[i-1]=[0,0,0,0,0,0,0,0];
     }
     console.log("row deleted")
-    arena2squares(arena);
+    arena2squares();
 }
 
 function fillDown(){
@@ -184,10 +186,10 @@ function fillDown(){
     // if (fullRow !== "notFull"){
     //     alert("something not right")
     // }
-    var arena = squares2arena(squares);
+    squares2arena();
     var doneSomething = false;//may need to go through and delete if don't end up using it
-    for (let y=0; y< 9; y++) {
-        for (let x=0; x< 8; x++){ 
+    for (let y=0; y< height-2; y++) {
+        for (let x=0; x< width; x++){ 
             if (arena[y][x] ==1 && arena[y+1][x]==0){
                 arena[y+1][x]=arena[y][x];
                 arena[y][x]=0;
@@ -229,20 +231,21 @@ function fillDown(){
     // setTimeout(() => {
 
     if (doneSomething==true){console.log("filled down")}
-    arena2squares(arena);
+    arena2squares();
+    // return arena
 }   
-
 function moveDone(){
-    var arena = squares2arena();
-    arena = fillDown(arena);
-    var check = fullRowCheck(arena);
+    squares2arena();
+    fillDown();
+    var check = fullRowCheck();
     console.log(check, "check")
     while (check !=="notFull"){
         console.log(check,"not full check")
-        arena = deleteRow(arena,check);
-        arena = fillDown(arena);
-        check = fullRowCheck(arena);
+        deleteRow(check);
+        fillDown();
+        check = fullRowCheck();
     }
+    arena2squares()
 }
 
 function createBoard(){//to add a fill down and delete
@@ -288,6 +291,7 @@ function createBoard(){//to add a fill down and delete
             squares.push(square)
         }
     }
+    // squares2arena()
     // console.log(arena)
     // return arena
 }
@@ -301,6 +305,8 @@ let colourBeingDragged
 let colourBeingReplaced
 let squareIdBeingDragged
 let squareIdBeingReplaced
+let classBeingReplaced
+let classBeingDragged
 
 function dragStart(){
     colourBeingDragged = this.style.backgroundColor
@@ -311,13 +317,17 @@ function dragStart(){
 function dragOver(e){
     e.preventDefault()
     console.log(this.id,"dragover")
+    moveDone()
 }
 function dragEnter(e){
     e.preventDefault()
     console.log(this.id,"dragenter")
+    moveDone()
 }
 function dragLeave(){
     console.log(this.id,"dragleave")
+    moveDone()
+
 }
 function dragEnd(){
     console.log(this.id,"dragend")
@@ -338,13 +348,18 @@ function dragEnd(){
     } else if (squareIdBeingReplaced && !validMove){
         squares[squareIdBeingReplaced].style.backgroundColor = colourBeingReplaced
         squares[squareIdBeingDragged].style.backgroundColor = colourBeingDragged
+        squares[squareIdBeingReplaced].className = classBeingReplaced
+        squares[squareIdBeingDragged].className = classBeingDragged
         squares[squareIdBeingReplaced].setAttribute("draggable",false)
     } else {
         squares[squareIdBeingDragged].style.backgroundColor = colourBeingDragged
+        squares[squareIdBeingDragged].className = classBeingDragged
         squares[squareIdBeingReplaced].setAttribute("draggable",false)
     }
+    moveDone()
+    // console.log(arena[8][0],80,arena)
 }
-function dragDrop(){
+function dragDropp(){
     console.log(this.id,"dragdrop")
     colourBeingReplaced = this.style.backgroundColor
     squareIdBeingReplaced = parseInt(this.id)
@@ -353,7 +368,11 @@ function dragDrop(){
     // console.log(y1,y2)
     // if (y1==y2){
     this.style.backgroundColor = colourBeingDragged
+    this.className = classBeingDragged
     squares[squareIdBeingDragged].style.backgroundColor = colourBeingReplaced// if this colour is grey make draggable false
+    squares[squareIdBeingDragged].className = classBeingReplaced
+    // moveDone()
+    // console.log(arena[8][0])
 
 }
 
@@ -363,7 +382,7 @@ squares.forEach(btn =>btn.addEventListener('dragend',dragEnd))
 squares.forEach(btn =>btn.addEventListener('dragover',dragOver))
 squares.forEach(btn =>btn.addEventListener('dragenter',dragEnter))
 squares.forEach(btn =>btn.addEventListener('dragleave',dragLeave))
-squares.forEach(btn =>btn.addEventListener('drop',dragDrop))
+squares.forEach(btn =>btn.addEventListener('drop',dragDropp))
 
 
 
