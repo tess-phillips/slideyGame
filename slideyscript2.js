@@ -9,11 +9,11 @@ let score=0;
 // }
 var colours = [  
     ['grey','grey'] ,
-    ["#FF0D72", "#ff5a9f"],
-    ["#0DC2FF",  "#5ad5ff"],
-    ["#0DFF72", "#5aff9f"], 
+    ["#FF0D72", "#D3D3D3"],
+    ["#0DC2FF",  "#D3D3D3"],
+    ["#0DFF72", "#D3D3D3"], 
     // "#F538FF",  
-    ["#FF8E0D",  "#ffb25a"],
+    ["#FF8E0D",  "#D3D3D3"],
     // "#FFE138",  
     // "#3877FF",  
    ];  
@@ -110,7 +110,7 @@ function generateRowNotFull(){
     }
 }   
 
-function squares2arena(squares){
+function squares2arena(){
     var row=[];
     var arena=[];
     var counter=0;
@@ -124,112 +124,126 @@ function squares2arena(squares){
         row=[];
         counter=counter+8;
     }
+    // arena = [arena];
     return arena
 }
 
 function arena2squares(arena){
-    var squares = arena.flat();
-    return squares
+    //squares = arena.flat();
+    console.log(arena)
+    var squareColouring = arena.flat(Infinity) 
+    for (let i=0;i<length.arena;i++){
+        // squares[i].setAttribute("id",i)
+        squares[i].className = squareColouring[i];
+        squares[i].style.backgroundColor = colours[squareColouring[i]][0]
+        if (squareColouring[i] !==0 && i<72){
+            squares[i].setAttribute("draggable",true)
+        } else if (i>71){
+        squares[i].style.backgroundColor = colours[squareColouring[i]][0]
+        squares[i].setAttribute("draggable",false)
+        } else {
+            squares[i].setAttribute("draggable",false)
+        }
+    }
 }
 
-//  function fullRowCheck(squares){ //arena[y][x]
-//     var arena = squares2arena(squares);
-//     //checks the arena for any full rows to be deleted
-//     for (let y=0; y< 11; y++) {
-//         var rowCount =0;
-//         for (let x=0; x< 8; x++){
-//             if (arena[y][x]!== 0){
-//                 rowCount +=1;
-//             }
-//         }
-//         if (rowCount ==8){
-//             //return y
-//             colouring(arena)
-//             return y
-//         }
-//     }
-//     // colouring(arena)
-//     return "notFull"
-// }
+ function fullRowCheck(){ //arena[y][x]
+    var arena = squares2arena();
+    //checks the arena for any full rows to be deleted
+    for (let y=0; y< height; y++) {
+        var rowCount =0;
+        for (let x=0; x< width; x++){
+            if (arena[y][x]!== '0'){
+                rowCount +=1;
+            }
+        }
+        if (rowCount ==width){
+            //return y
+            // colouring(arena)
+            return y
+        }
+    }
+    // colouring(arena)
+    return "notFull"
+}
 
-// function deleteRow(squares, fullRow){
-//     var arena = squares2arena(squares);
-//     // console.log(arena)
-//     arena[fullRow]=[0,0,0,0,0,0,0,0];
-//     for (let i=fullRow;i>0;i--){
-//         arena[i]=arena[i-1];
-//         arena[i-1]=[0,0,0,0,0,0,0,0];
-//     }
-//     console.log("row deleted")
-//     squares = arena2squares(arena);
-//     return squares
-// }
+function deleteRow(fullRow){
+    var arena = squares2arena(squares);
+    // console.log(arena)
+    arena[fullRow]=[0,0,0,0,0,0,0,0];
+    for (let i=fullRow;i>0;i--){
+        arena[i]=arena[i-1];
+        arena[i-1]=[0,0,0,0,0,0,0,0];
+    }
+    console.log("row deleted")
+    arena2squares(arena);
+}
 
-// function fillDown(squares){
-//     // var fullRow= fullRowCheck(arena);
-//     // if (fullRow !== "notFull"){
-//     //     alert("something not right")
-//     // }
-//     var arena = squares2arena(squares);
-//     var doneSomething = false;//may need to go through and delete if don't end up using it
-//     for (let y=0; y< 9; y++) {
-//         for (let x=0; x< 8; x++){ 
-//             if (arena[y][x] ==1 && arena[y+1][x]==0){
-//                 arena[y+1][x]=arena[y][x];
-//                 arena[y][x]=0;
-//                 doneSomething =true;
-//              }
-//             if (arena[y][x] ==2 && arena[y][x+1]==2 && arena[y+1][x]==0&& arena[y+1][x+1]==0){
-//                 arena[y+1][x]=arena[y][x];
-//                 arena[y+1][x+1]=arena[y][x]
-//                 arena[y][x]=0;
-//                 arena[y][x+1]=0;
-//                 x+=1;
-//                 doneSomething =true;
-//             }
-//             if (arena[y][x] ==3 && arena[y][x+1]==3 && arena[y][x+2]==3 && arena[y+1][x]==0&& arena[y+1][x+1]==0&& arena[y+1][x+2]==0){
-//                 arena[y+1][x]=arena[y][x];
-//                 arena[y+1][x+1]=arena[y][x];
-//                 arena[y+1][x+2]=arena[y][x];
-//                 arena[y][x]=0;
-//                 arena[y][x+1]=0;
-//                 arena[y][x+2]=0;
-//                 x+=2;
-//                 doneSomething =true;
-//             }
-//             if (arena[y][x] ==4 && arena[y][x+1]==4 && arena[y][x+2]==4 && arena[y][x+3]==4 && arena[y+1][x]==0&& arena[y+1][x+1]==0&& arena[y+1][x+2]==0&& arena[y+1][x+3]==0){
-//                 arena[y+1][x]=arena[y][x];
-//                 arena[y+1][x+1]=arena[y][x];
-//                 arena[y+1][x+2]=arena[y][x];
-//                 arena[y+1][x+3]=arena[y][x];
-//                 arena[y][x]=0;
-//                 arena[y][x+1]=0;
-//                 arena[y][x+2]=0;
-//                 arena[y][x+3]=0;
-//                 x+=3;
-//                 doneSomething =true;
-//             }
-//             }
-//     }
+function fillDown(){
+    // var fullRow= fullRowCheck(arena);
+    // if (fullRow !== "notFull"){
+    //     alert("something not right")
+    // }
+    var arena = squares2arena(squares);
+    var doneSomething = false;//may need to go through and delete if don't end up using it
+    for (let y=0; y< 9; y++) {
+        for (let x=0; x< 8; x++){ 
+            if (arena[y][x] ==1 && arena[y+1][x]==0){
+                arena[y+1][x]=arena[y][x];
+                arena[y][x]=0;
+                doneSomething =true;
+             }
+            if (arena[y][x] ==2 && arena[y][x+1]==2 && arena[y+1][x]==0&& arena[y+1][x+1]==0){
+                arena[y+1][x]=arena[y][x];
+                arena[y+1][x+1]=arena[y][x]
+                arena[y][x]=0;
+                arena[y][x+1]=0;
+                x+=1;
+                doneSomething =true;
+            }
+            if (arena[y][x] ==3 && arena[y][x+1]==3 && arena[y][x+2]==3 && arena[y+1][x]==0&& arena[y+1][x+1]==0&& arena[y+1][x+2]==0){
+                arena[y+1][x]=arena[y][x];
+                arena[y+1][x+1]=arena[y][x];
+                arena[y+1][x+2]=arena[y][x];
+                arena[y][x]=0;
+                arena[y][x+1]=0;
+                arena[y][x+2]=0;
+                x+=2;
+                doneSomething =true;
+            }
+            if (arena[y][x] ==4 && arena[y][x+1]==4 && arena[y][x+2]==4 && arena[y][x+3]==4 && arena[y+1][x]==0&& arena[y+1][x+1]==0&& arena[y+1][x+2]==0&& arena[y+1][x+3]==0){
+                arena[y+1][x]=arena[y][x];
+                arena[y+1][x+1]=arena[y][x];
+                arena[y+1][x+2]=arena[y][x];
+                arena[y+1][x+3]=arena[y][x];
+                arena[y][x]=0;
+                arena[y][x+1]=0;
+                arena[y][x+2]=0;
+                arena[y][x+3]=0;
+                x+=3;
+                doneSomething =true;
+            }
+            }
+    }
     
-//     // setTimeout(() => {
+    // setTimeout(() => {
 
-//     if (doneSomething==true){console.log("filled down")}
-//     squares = arena2squares(arena);
-//     return squares
-// }   
+    if (doneSomething==true){console.log("filled down")}
+    arena2squares(arena);
+}   
 
-// function moveDone(squares){
-//     var arena = squares2arena(squares);
-//     arena = fillDown(arena);
-//     var check = fullRowCheck(arena);
-//     while (check !=="notFull"){
-//         console.log(check,"not full check")
-//         arena = deleteRow(arena,check);
-//         arena = fillDown(arena);
-//         check = fullRowCheck(arena);
-//     }
-// }
+function moveDone(){
+    var arena = squares2arena();
+    arena = fillDown(arena);
+    var check = fullRowCheck(arena);
+    console.log(check, "check")
+    while (check !=="notFull"){
+        console.log(check,"not full check")
+        arena = deleteRow(arena,check);
+        arena = fillDown(arena);
+        check = fullRowCheck(arena);
+    }
+}
 
 function createBoard(){//to add a fill down and delete
     var index1 = 0;
@@ -279,7 +293,7 @@ function createBoard(){//to add a fill down and delete
 }
 
 createBoard()
-// moveDone(squares)
+moveDone()
 // var x = squares2arena(squares)
 // console.log(arena2squares(x))
 
