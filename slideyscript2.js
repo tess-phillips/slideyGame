@@ -310,6 +310,7 @@ let classBeingDragged
 
 function dragStart(){
     colourBeingDragged = this.style.backgroundColor
+    classBeingDragged = this.className
     squareIdBeingDragged = parseInt(this.id)
     console.log(colourBeingDragged)
     console.log(this.id,"dragstart")
@@ -346,32 +347,37 @@ function dragEnd(){
         } 
         squareIdBeingReplaced = null
     } else if (squareIdBeingReplaced && !validMove){
-        squares[squareIdBeingReplaced].style.backgroundColor = colourBeingReplaced
-        squares[squareIdBeingDragged].style.backgroundColor = colourBeingDragged
+        // squares[squareIdBeingReplaced].style.backgroundColor = colourBeingReplaced
+        // squares[squareIdBeingDragged].style.backgroundColor = colourBeingDragged
         squares[squareIdBeingReplaced].className = classBeingReplaced
         squares[squareIdBeingDragged].className = classBeingDragged
         squares[squareIdBeingReplaced].setAttribute("draggable",false)
     } else {
-        squares[squareIdBeingDragged].style.backgroundColor = colourBeingDragged
+        // squares[squareIdBeingDragged].style.backgroundColor = colourBeingDragged
         squares[squareIdBeingDragged].className = classBeingDragged
         squares[squareIdBeingReplaced].setAttribute("draggable",false)
     }
+    colouring()
     moveDone()
     // console.log(arena[8][0],80,arena)
 }
+
 function dragDropp(){
     console.log(this.id,"dragdrop")
     colourBeingReplaced = this.style.backgroundColor
+    classBeingReplaced = this.className
     squareIdBeingReplaced = parseInt(this.id)
     // var y1 = squareIdBeingDragged % 10;
     // var y2 = squareIdBeingReplaced % 10;
     // console.log(y1,y2)
     // if (y1==y2){
-    this.style.backgroundColor = colourBeingDragged
+    // this.style.backgroundColor = colourBeingDragged
     this.className = classBeingDragged
-    squares[squareIdBeingDragged].style.backgroundColor = colourBeingReplaced// if this colour is grey make draggable false
+    // squares[squareIdBeingDragged].style.backgroundColor = colourBeingReplaced// if this colour is grey make draggable false
     squares[squareIdBeingDragged].className = classBeingReplaced
-    // moveDone()
+    colouring()
+    moveDone()
+
     // console.log(arena[8][0])
 
 }
