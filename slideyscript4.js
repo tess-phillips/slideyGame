@@ -207,7 +207,7 @@ function fillDown(){
         console.log("filled down")
         colouring()
     }
-
+    // NEED TO WORK OUT HOW TO GET A DELAY AT THE END OF THIS FUNCTION
     }   
 
 function allup(){
@@ -235,10 +235,12 @@ function allup(){
 }
     function moveDone(){
         fillDown();
+        allup();
+        fillDown();
         var check = fullRowCheck();
         if (check !=="notFull"){
             deleteRow(check)
-            allup()
+            // allup()
         }
         // console.log(check, "check")
         while (check !=="notFull"){
@@ -247,6 +249,8 @@ function allup(){
             fillDown();
             check = fullRowCheck();
         }
+        console.log("move done")
+        fillDown()
     }
     
     function createBoard(){//to add a fill down and delete
@@ -306,48 +310,57 @@ function allup(){
     function dragOver(e){
         e.preventDefault()
         console.log(this.id,"dragover")
-        moveDone()
     }
     function dragEnter(e){
         e.preventDefault()
         console.log(this.id,"dragenter")
-        moveDone()
     }
     function dragLeave(){
         console.log(this.id,"dragleave")
-        moveDone()
     
     }
 
     function dragEnd(){
         console.log(this.id,"dragend")
-        // var leftMove1 = squareIdBeingDragged - 10;
-    
-        //add an if (colour is what it is then) but for now just doing 1
-        let validMoves = [
-            squareIdBeingDragged-1, 
-            squareIdBeingDragged +1]
-    
-        let validMove = validMoves.includes(squareIdBeingReplaced)
-        if (squareIdBeingReplaced && validMove){
-            squares[squareIdBeingReplaced].setAttribute("draggable",true)
-            if (squares[squareIdBeingDragged].style.backgroundColor === 'grey'){
-                squares[squareIdBeingDragged].setAttribute("draggable",false)
-            } 
-            squareIdBeingReplaced = null
-        } else if (squareIdBeingReplaced && !validMove){
-            // squares[squareIdBeingReplaced].style.backgroundColor = colourBeingReplaced
-            // squares[squareIdBeingDragged].style.backgroundColor = colourBeingDragged
-            squares[squareIdBeingReplaced].className = classBeingReplaced
-            squares[squareIdBeingDragged].className = classBeingDragged
-            squares[squareIdBeingReplaced].setAttribute("draggable",false)
-        } else {
-            // squares[squareIdBeingDragged].style.backgroundColor = colourBeingDragged
-            squares[squareIdBeingDragged].className = classBeingDragged
-            squares[squareIdBeingReplaced].setAttribute("draggable",false)
+        var leftMove = 0; rightMove = 0;
+        var validMoves = [];
+        for (let i=1;i<width;i++){
+            // console.log(squares[squareIdBeingDragged-i].className,"leftclassname")
+            if (squares[squareIdBeingDragged-i].className==0 && Math.floor((squareIdBeingDragged-i)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
+                leftMove +=1;
+                console.log(leftMove,"left")
+                validMoves.push(squareIdBeingDragged-leftMove);
+            }
+            else {i=8}
         }
-        colouring()
-        moveDone()
+        for (let j=1;j<width;j++){
+            if (squares[squareIdBeingDragged+j].className==0 && Math.floor((squareIdBeingDragged+j)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
+                rightMove +=1;
+                console.log(rightMove,"right")
+                validMoves.push(squareIdBeingDragged+rightMove);
+            }
+            else {j=8}
+        }
+        //add an if (colour is what it is then) but for now just doing 1
+        // let validMoves = [
+        //     squareIdBeingDragged-1, 
+        //     squareIdBeingDragged +1]
+        // validMoves.push(squareIdBeingDragged)
+        // let validMove = validMoves.includes(squareIdBeingDragged) // might need to change to dragged
+        console.log(validMoves, "valid moves are")
+        if (validMoves.includes(squareIdBeingReplaced)){ 
+            squares[squareIdBeingReplaced].className = classBeingDragged
+            squares[squareIdBeingDragged].className = classBeingReplaced
+            colouring()
+            moveDone()
+        // } else if (squareIdBeingDragged && !validMoves){ //swap back if not valid
+        //     // squares[squareIdBeingReplaced].className = classBeingReplaced
+        //     // squares[squareIdBeingDragged].className = classBeingDragged
+        } 
+        else {
+            // squares[squareIdBeingDragged].className = classBeingDragged
+        }
+
         // console.log(arena[8][0],80,arena)
     }
 
@@ -356,16 +369,11 @@ function allup(){
         classBeingReplaced = this.className
         colourBeingReplaced = this.style.backgroundColor
         squareIdBeingReplaced = parseInt(this.id)
-        // var y1 = squareIdBeingDragged % 10;
-        // var y2 = squareIdBeingReplaced % 10;
-        // console.log(y1,y2)
-        // if (y1==y2){
-        // this.style.backgroundColor = colourBeingDragged
-        this.className = classBeingDragged
-        // squares[squareIdBeingDragged].style.backgroundColor = colourBeingReplaced// if this colour is grey make draggable false
-        squares[squareIdBeingDragged].className = classBeingReplaced
-        colouring()
-        moveDone()
+        // this.className = classBeingDragged
+        // squares[squareIdBeingDragged].className = classBeingReplaced
+
+        // colouring()
+        // moveDone()
         // console.log(arena[8][0])
     
     }
