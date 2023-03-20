@@ -131,85 +131,85 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 
 
-function colouring(){
-    for (let i=0;i<width*height;i++){
-        if (i<72){
-            squares[i].style.backgroundColor=colours[squares[i].className][0]
-            if (colours[squares[i].className][0]=="grey"){
-                squares[i].setAttribute("draggable",false)
-            } else {squares[i].setAttribute("draggable",true)}
-    } else {
-        squares[i].style.backgroundColor=colours[squares[i].className][1]
-        squares[i].setAttribute("draggable",false)
-    }
-
-    }
-}
-
-function fillDown(){
-    // var fullRow= fullRowCheck(arena);
-    // if (fullRow !== "notFull"){
-    //     alert("something not right")
-    // }
-    var doneSomething = false;//may need to go through and delete if don't end up using it
-    for (let y=0; y< height-2; y++) {
-        for (let x=0; x< width; x++){ 
-            // let i=squares[(y*8)+x] //x,y
-            // let j=squares[(y*8)+x+8]  //x,y+1
-            // let k=squares[(y*8)+x+9]; // x+1,y+1
-            // let l=squares[(y*8)+x+10]; //x+2, y+1
-            // let m=squares[(y*8)+x+1]; //x+1,y
-            // let n=squares[(y*8)+x+2]; // x+2,y
-            // let o=squares[(y*8)+x+11]; // x+3,y+1
-            // let p=squares[(y*8)+x+3]; // x+3,y
-            if (squares[(y*8)+x].className ==1 && squares[(y*8)+x+8].className==0){
-                squares[(y*8)+x+8].className=squares[(y*8)+x].className;
-                squares[(y*8)+x].className=0;
-                doneSomething =true;
-             }
-            if (squares[(y*8)+x].className ==2 && squares[(y*8)+x+1].className==2 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0){
-                squares[(y*8)+x+8].className=squares[(y*8)+x].className;
-                squares[(y*8)+x+9].className=squares[(y*8)+x].className
-                squares[(y*8)+x].className=0;
-                squares[(y*8)+x+1].className=0;
-                x+=1;
-                doneSomething =true;
-            }
-            if (squares[(y*8)+x].className && squares[(y*8)+x+1].className==3 && squares[(y*8)+x+2].className==3 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0&& squares[(y*8)+x+10].className==0){
-                squares[(y*8)+x+8].className=squares[(y*8)+x].className;
-                squares[(y*8)+x+9].className=squares[(y*8)+x].className;
-                squares[(y*8)+x+10].className=squares[(y*8)+x].className;
-                squares[(y*8)+x].className=0;
-                squares[(y*8)+x+1].className=0;
-                squares[(y*8)+x+2].className=0;
-                x+=2;
-                doneSomething =true;
-            }
-            if (squares[(y*8)+x].className&& squares[(y*8)+x+1].className==4 && squares[(y*8)+x+2].className==4 && squares[(y*8)+x+3].className==4 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0&& squares[(y*8)+x+10].className==0&& squares[(y*8)+x+11].className==0){
-                squares[(y*8)+x+8].className=squares[(y*8)+x].className;
-                squares[(y*8)+x+9].className=squares[(y*8)+x].className;
-                squares[(y*8)+x+10].className=squares[(y*8)+x].className;
-                squares[(y*8)+x+11].className=squares[(y*8)+x].className;
-                squares[(y*8)+x].className=0;
-                squares[(y*8)+x+1].className=0;
-                squares[(y*8)+x+2].className=0;
-                squares[(y*8)+x+3].className=0;
-                x+=3;
-                doneSomething =true;
-            }
-            }
-    }
-    
-    // setTimeout(() => {
-    if (doneSomething==true){
-        for (let i=0; i<width;i++){
-            squares[i].className=0
+    function colouring(){
+        for (let i=0;i<width*height;i++){
+            if (i<72){
+                squares[i].style.backgroundColor=colours[squares[i].className][0]
+                if (colours[squares[i].className][0]=="grey"){
+                    squares[i].setAttribute("draggable",false)
+                } else {squares[i].setAttribute("draggable",true)}
+        } else {
+            squares[i].style.backgroundColor=colours[squares[i].className][1]
+            squares[i].setAttribute("draggable",false)
         }
-        console.log("filled down")
-        colouring()
+
+        }
     }
-    // NEED TO WORK OUT HOW TO GET A DELAY AT THE END OF THIS FUNCTION
-    }   
+
+    function fillDown(){
+        // var fullRow= fullRowCheck(arena);
+        // if (fullRow !== "notFull"){
+        //     alert("something not right")
+        // }
+        var doneSomething = false;//may need to go through and delete if don't end up using it
+        for (let y=0; y< height-2; y++) {
+            for (let x=0; x< width; x++){ 
+                // let i=squares[(y*8)+x] //x,y
+                // let j=squares[(y*8)+x+8]  //x,y+1
+                // let k=squares[(y*8)+x+9]; // x+1,y+1
+                // let l=squares[(y*8)+x+10]; //x+2, y+1
+                // let m=squares[(y*8)+x+1]; //x+1,y
+                // let n=squares[(y*8)+x+2]; // x+2,y
+                // let o=squares[(y*8)+x+11]; // x+3,y+1
+                // let p=squares[(y*8)+x+3]; // x+3,y
+                if (squares[(y*8)+x].className ==1 && squares[(y*8)+x+8].className==0){
+                    squares[(y*8)+x+8].className=squares[(y*8)+x].className;
+                    squares[(y*8)+x].className=0;
+                    doneSomething =true;
+                }
+                if (squares[(y*8)+x].className ==2 && squares[(y*8)+x+1].className==2 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0){
+                    squares[(y*8)+x+8].className=squares[(y*8)+x].className;
+                    squares[(y*8)+x+9].className=squares[(y*8)+x].className
+                    squares[(y*8)+x].className=0;
+                    squares[(y*8)+x+1].className=0;
+                    x+=1;
+                    doneSomething =true;
+                }
+                if (squares[(y*8)+x].className && squares[(y*8)+x+1].className==3 && squares[(y*8)+x+2].className==3 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0&& squares[(y*8)+x+10].className==0){
+                    squares[(y*8)+x+8].className=squares[(y*8)+x].className;
+                    squares[(y*8)+x+9].className=squares[(y*8)+x].className;
+                    squares[(y*8)+x+10].className=squares[(y*8)+x].className;
+                    squares[(y*8)+x].className=0;
+                    squares[(y*8)+x+1].className=0;
+                    squares[(y*8)+x+2].className=0;
+                    x+=2;
+                    doneSomething =true;
+                }
+                if (squares[(y*8)+x].className&& squares[(y*8)+x+1].className==4 && squares[(y*8)+x+2].className==4 && squares[(y*8)+x+3].className==4 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0&& squares[(y*8)+x+10].className==0&& squares[(y*8)+x+11].className==0){
+                    squares[(y*8)+x+8].className=squares[(y*8)+x].className;
+                    squares[(y*8)+x+9].className=squares[(y*8)+x].className;
+                    squares[(y*8)+x+10].className=squares[(y*8)+x].className;
+                    squares[(y*8)+x+11].className=squares[(y*8)+x].className;
+                    squares[(y*8)+x].className=0;
+                    squares[(y*8)+x+1].className=0;
+                    squares[(y*8)+x+2].className=0;
+                    squares[(y*8)+x+3].className=0;
+                    x+=3;
+                    doneSomething =true;
+                }
+                }
+        }
+        
+        // setTimeout(() => {
+        if (doneSomething==true){
+            for (let i=0; i<width;i++){
+                squares[i].className=0
+            }
+            console.log("filled down")
+            colouring()
+        }
+        // NEED TO WORK OUT HOW TO GET A DELAY AT THE END OF THIS FUNCTION
+        }   
 
     function allup(){
         var rowColouring = generateRowNotFull()
@@ -248,16 +248,16 @@ function fillDown(){
         fillDown()
         var check = fullRowCheck();
         if (check !=="notFull"){
-            // deleteRow(check)
+            deleteRow(check)
             fillDown()
         }
-        // console.log(check, "check")
-        // while (check !=="notFull"){
-        //     // console.log(check,"not full check")
-        //     deleteRow(check);
-        //     fillDown();
-        //     check = fullRowCheck();
-        // }
+        console.log(check, "check")
+        while (check !=="notFull"){
+            // console.log(check,"not full check")
+            deleteRow(check);
+            fillDown();
+            check = fullRowCheck();
+        }
         console.log("move done")
         fillDown()
  
@@ -356,10 +356,14 @@ function fillDown(){
             var leftMove = 0; rightMove = 0;
             var validMoves = [];
             LoR = null;
-            if (squares[squareIdBeingDragged].className == 2 && squares[squareIdBeingDragged-1].className == 2){
+            if ((squares[squareIdBeingDragged].className == 2 && squares[squareIdBeingDragged-1].className == 2)||
+                (squares[squareIdBeingDragged].className == 3 && squares[squareIdBeingDragged-1].className == 3&& squares[squareIdBeingDragged-2].className == 3)||
+                (squares[squareIdBeingDragged].className == 4 && squares[squareIdBeingDragged-1].className == 4&& squares[squareIdBeingDragged-2].className == 4&& squares[squareIdBeingDragged-3].className == 4)){
                 LoR ="rightOfBlock";
                 console.log(LoR)
-            } else if (squares[squareIdBeingDragged].className == 2 && squares[squareIdBeingDragged+1].className == 2){
+            } else  if ((squares[squareIdBeingDragged].className == 2 && squares[squareIdBeingDragged+1].className == 2)||
+            (squares[squareIdBeingDragged].className == 3 && squares[squareIdBeingDragged+1].className == 3&& squares[squareIdBeingDragged+2].className == 3)||
+            (squares[squareIdBeingDragged].className == 4 && squares[squareIdBeingDragged+1].className == 4&& squares[squareIdBeingDragged+2].className == 4&& squares[squareIdBeingDragged+3].className == 4)){
                 LoR="leftOfBlock";
                 console.log(LoR)
             }
@@ -403,7 +407,8 @@ function fillDown(){
                     }
                     else {j=8}
                 }
-                validMoves.push(squareIdBeingDragged+classBeingDragged-1)
+                if (rightMove>0)
+                {validMoves.push(squareIdBeingDragged+classBeingDragged-1)}
             }
             else if (LoR == "rightOfBlock"){
                 for (let i=classBeingDragged;i<width;i++){
@@ -423,7 +428,8 @@ function fillDown(){
                     }
                     else {j=8}
                 }
-                validMoves.push(squareIdBeingDragged-classBeingDragged+1)
+                if (leftMove>0)
+                {validMoves.push(squareIdBeingDragged-classBeingDragged+1)}
             }
             console.log(validMoves, "valid moves are")
             var bigList = [validMoves,LoR,dir]
@@ -449,6 +455,7 @@ function fillDown(){
         } 
         else if(direction<0 && LoRofBlock =="leftOfBlock"){
             if (validMove.includes(squareIdBeingReplaced)){ 
+                console.log("valid")
                 for (let k=0; k<classBeingDragged;k++){
                     squares[squareIdBeingReplaced+k].className = classBeingDragged
                     squares[squareIdBeingDragged+k].className = classBeingReplaced
@@ -464,24 +471,35 @@ function fillDown(){
                     squares[squareIdBeingDragged+k].className =0;
                     squares[squareIdBeingReplaced+k].className = classBeingDragged
                 }
-                // for (let k=0; k<classBeingDragged;k++){
-                //     squares[squareIdBeingReplaced+k].className = classBeingDragged
-                //     squares[squareIdBeingDragged+k].className = classBeingReplaced;
-                // }
-                // if (Math.abs(direction)==1){ // not a fan of this method
-                //     squares[squareIdBeingReplaced+1].className = classBeingDragged
-                //     squares[squareIdBeingDragged].className = 0;
-                // }
-                // for (let k=0; k<classBeingDragged;k++){
-                //     // for (let l=1; l<Maths.abs(dir)+1;l++){
-                //     // }
-                //     squares[squareIdBeingReplaced+k].className = classBeingDragged
-                //     squares[squareIdBeingDragged+k+1].className = 0;
-                // }
+                squares[squareIdBeingReplaced].className = classBeingDragged
                 colouring()
                 moveDone()
-            } else {console.log("it isn't")}
+            }
             console.log("RL")
+        } 
+        else if(direction>0 && LoRofBlock=="rightOfBlock"){
+            if (validMove.includes(squareIdBeingReplaced)){ 
+                for (let k=0; k<classBeingDragged;k++){
+                    squares[squareIdBeingDragged-k].className =0;
+                    squares[squareIdBeingReplaced-k].className = classBeingDragged
+                }
+                colouring()
+                moveDone()
+            }
+            console.log("RR")
+        }
+        else if(direction<0 && LoRofBlock=="rightOfBlock"){
+            if (validMove.includes(squareIdBeingReplaced)){ 
+                console.log("valid")
+                for (let k=0; k<classBeingDragged;k++){
+                    squares[squareIdBeingDragged-k].className =0;
+                    squares[squareIdBeingReplaced-k].className = classBeingDragged
+                }
+                squares[squareIdBeingReplaced].className = classBeingDragged
+                colouring()
+                moveDone()
+            }
+            console.log("LR")
         }
 
 
