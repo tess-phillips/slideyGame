@@ -147,13 +147,29 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
 
     function fillDown(){
-        // var fullRow= fullRowCheck(arena);
-        // if (fullRow !== "notFull"){
-        //     alert("something not right")
-        // }
         var doneSomething = false;//may need to go through and delete if don't end up using it
         for (let y=0; y< height-2; y++) {
             for (let x=0; x< width; x++){ 
+
+                // wholeblock =true;
+                // if (parseInt(squares[(y*8)+x].className)!=0 && parseInt(squares[(y*8)+x].className)!=1 && parseInt(squares[(y*8)+x+8].className) !=0){
+                //     var num = parseInt(squares[(y*8)+x].className)
+                //     wholeblock=false
+                //     x+=(num-1) // this is definitely not working seamlessly
+                //     console.log("false")
+                // } WAS WORKING BETTER BEFORE FIND PREVIOUS VERSION
+
+                // if (squares[(y*8)+x].className ==2 && squares[(y*8)+x+1].className==2 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0) {
+                //     for (let i=0; i<width;i++){
+                //         if (squares[(y*8)+x-i].className ==2){ //AND ON SAME ROW
+                //             leftnum +=1
+                //         } else {i=8}
+                //     }
+                //     if (leftnum%2 ==0){
+                //         wholeblock = false
+                //     }
+                // }
+
                 // let i=squares[(y*8)+x] //x,y
                 // let j=squares[(y*8)+x+8]  //x,y+1
                 // let k=squares[(y*8)+x+9]; // x+1,y+1
