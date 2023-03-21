@@ -10,15 +10,10 @@ document.addEventListener('DOMContentLoaded',()=>{
         ["#FF0D72", "#D3D3D3"],
         ["#0DC2FF",  "#D3D3D3"],
         ["#0DFF72", "#D3D3D3"], 
-        // "#F538FF",  
-        ["#FF8E0D",  "#D3D3D3"],
-        // "#FFE138",  
-        // "#3877FF",  
+        ["#FF8E0D",  "#D3D3D3"]  
        ];  
     
     function generateRow(){ //can make this shorter with || 
-        //can add the "non-empty clause to this function so all new rows not full" 
-        // i.e  if (i>7 && fullRowCheck(row)=="notFull") {return row;} else {return }
         var i=0;
         var row = [];
         var randomNum= Math.floor(Math.random()*5);
@@ -94,8 +89,8 @@ document.addEventListener('DOMContentLoaded',()=>{
         }
     }   
     
-    function fullRowCheck(){ //arena[y][x]
-        //checks the arena for any full rows to be deleted
+    function fullRowCheck(){
+        //checks the squares for any full rows to be deleted
         for (let y=0; y< height; y++) {
             var rowCount =0;
             for (let x=0; x< width; x++){
@@ -104,17 +99,13 @@ document.addEventListener('DOMContentLoaded',()=>{
                 }
             }
             if (rowCount ==width){
-                // console.log("fullRowCheck",y)
                 return y
             }
         }
-        // console.log("fullRowCheck","notFull")
         return "notFull"
     }
     
     function deleteRow(fullRow){
-        // console.log(arena)
-        // squares[fullRow]=[0,0,0,0,0,0,0,0];
         for (let x=0; x<width; x++){
             squares[(fullRow*8)+x].className=0
         }
@@ -128,8 +119,6 @@ document.addEventListener('DOMContentLoaded',()=>{
         colouring()
         }   
     }
-
-
 
     function colouring(){
         for (let i=0;i<width*height;i++){
@@ -147,13 +136,30 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
 
     function fillDown(){
-        // var fullRow= fullRowCheck(arena);
-        // if (fullRow !== "notFull"){
-        //     alert("something not right")
-        // }
-        var doneSomething = false;//may need to go through and delete if don't end up using it
+        var wholeblock=true;
+        var doneSomething = false;
+        var num =0; 
         for (let y=0; y< height-2; y++) {
             for (let x=0; x< width; x++){ 
+                wholeblock =true;
+                // if (parseInt(squares[(y*8)+x].className)!=0 && parseInt(squares[(y*8)+x].className)!=1 && parseInt(squares[(y*8)+x+8].className) !=0){
+                //     var num = parseInt(squares[(y*8)+x].className)
+                //     wholeblock=false
+                //     x+=(num-1) // this is definitely not working seamlessly
+                //     console.log("false")
+                // } WAS WORKING BETTER BEFORE FIND PREVIOUS VERSION
+
+            //     if (squares[(y*8)+x].className ==2 && squares[(y*8)+x+1].className==2 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0) {
+            //         for (let i=0; i<width;i++){
+            //             if (squares[(y*8)+x-i].className ==2){ //AND ON SAME ROW
+            //                 leftnum +=1
+            //             } else {i=8}
+            //         }
+            //         if (leftnum%2 ==0){
+            //             wholeblock = false
+            //         }
+            // }
+
                 // let i=squares[(y*8)+x] //x,y
                 // let j=squares[(y*8)+x+8]  //x,y+1
                 // let k=squares[(y*8)+x+9]; // x+1,y+1
@@ -167,7 +173,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     squares[(y*8)+x].className=0;
                     doneSomething =true;
                 }
-                if (squares[(y*8)+x].className ==2 && squares[(y*8)+x+1].className==2 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0){
+                if ((squares[(y*8)+x].className ==2 && squares[(y*8)+x+1].className==2 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0)&& wholeblock ==true){
                     squares[(y*8)+x+8].className=squares[(y*8)+x].className;
                     squares[(y*8)+x+9].className=squares[(y*8)+x].className
                     squares[(y*8)+x].className=0;
@@ -175,7 +181,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     x+=1;
                     doneSomething =true;
                 }
-                if (squares[(y*8)+x].className && squares[(y*8)+x+1].className==3 && squares[(y*8)+x+2].className==3 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0&& squares[(y*8)+x+10].className==0){
+                if ((squares[(y*8)+x].className==3 && squares[(y*8)+x+1].className==3 && squares[(y*8)+x+2].className==3 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0&& squares[(y*8)+x+10].className==0)&& wholeblock==true){
                     squares[(y*8)+x+8].className=squares[(y*8)+x].className;
                     squares[(y*8)+x+9].className=squares[(y*8)+x].className;
                     squares[(y*8)+x+10].className=squares[(y*8)+x].className;
@@ -185,7 +191,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     x+=2;
                     doneSomething =true;
                 }
-                if (squares[(y*8)+x].className&& squares[(y*8)+x+1].className==4 && squares[(y*8)+x+2].className==4 && squares[(y*8)+x+3].className==4 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0&& squares[(y*8)+x+10].className==0&& squares[(y*8)+x+11].className==0){
+                if ((squares[(y*8)+x].className==4&& squares[(y*8)+x+1].className==4 && squares[(y*8)+x+2].className==4 && squares[(y*8)+x+3].className==4 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0&& squares[(y*8)+x+10].className==0&& squares[(y*8)+x+11].className==0)&& wholeblock==true){
                     squares[(y*8)+x+8].className=squares[(y*8)+x].className;
                     squares[(y*8)+x+9].className=squares[(y*8)+x].className;
                     squares[(y*8)+x+10].className=squares[(y*8)+x].className;
@@ -200,7 +206,6 @@ document.addEventListener('DOMContentLoaded',()=>{
                 }
         }
         
-        // setTimeout(() => {
         if (doneSomething==true){
             for (let i=0; i<width;i++){
                 squares[i].className=0
@@ -208,12 +213,11 @@ document.addEventListener('DOMContentLoaded',()=>{
             console.log("filled down")
             colouring()
         }
-        // NEED TO WORK OUT HOW TO GET A DELAY AT THE END OF THIS FUNCTION
+        // NEED TO WORK OUT HOW TO GET A DELAY AT THE END OF THIS FUNCTION (maybe with set timeout)
         }   
 
     function allup(){
         var rowColouring = generateRowNotFull()
-        console.log(rowColouring)
         for (let i = 0; i<width*height; i++){
             if (i<72){
                 squares[i].className= squares[i+8].className
@@ -226,18 +230,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     console.log("game over")
                     break
                 }
-            }  
-            //     if (i>71 ){
-            //         var squareColourIndex = rowColouring[j]
-            //         // squares[i].className = colours[squareColourIndex][1];
-            //         squares[i].className = squareColourIndex
-            //     }
-            // }
-            // if (i >7){
-            //     squares[i+8].className= squares[i].className
-            //     // squares[i].className=0
-            // }
-            
+            }              
             }
         colouring()
         console.log("all up")
@@ -251,15 +244,14 @@ document.addEventListener('DOMContentLoaded',()=>{
             deleteRow(check)
             fillDown()
         }
-        console.log(check, "check")
+        // console.log(check, "check")
         while (check !=="notFull"){
-            // console.log(check,"not full check")
             deleteRow(check);
             fillDown();
             check = fullRowCheck();
         }
         console.log("move done")
-        fillDown()
+        // fillDown()
  
     }
     
@@ -299,8 +291,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     
     createBoard()
     moveDone()
-    // var x = squares2arena(squares)
-    // console.log(arena2squares(x))
     
     let colourBeingDragged 
     let colourBeingReplaced
@@ -501,12 +491,13 @@ document.addEventListener('DOMContentLoaded',()=>{
             }
             console.log("LR")
         }
-
+        var emptycount = 0;
+        for (let empty=64; empty<width*height;empty++){
+            if (squares[64].className=0){emptycount+=1}}
+        if (emptycount == 8){moveDone()}
 
 
     }
-
-
 
     function dragDropp(){
         console.log(this.id,"dragdrop")
