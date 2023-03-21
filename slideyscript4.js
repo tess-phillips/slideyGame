@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         var leftnum =0; 
         for (let y=0; y< height-2; y++) {
             for (let x=0; x< width; x++){ 
-                wholeblock =true;
+                // wholeblock =true;
                 // if (parseInt(squares[(y*8)+x].className)!=0 && parseInt(squares[(y*8)+x].className)!=1 && parseInt(squares[(y*8)+x+8].className) !=0){
                 //     var num = parseInt(squares[(y*8)+x].className)
                 //     wholeblock=false
@@ -149,16 +149,16 @@ document.addEventListener('DOMContentLoaded',()=>{
                 //     console.log("false")
                 // } WAS WORKING BETTER BEFORE FIND PREVIOUS VERSION
 
-                if (squares[(y*8)+x].className ==2 && squares[(y*8)+x+1].className==2 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0) {
-                    for (let i=0; i<width;i++){
-                        if (squares[(y*8)+x-i].className ==2){ //AND ON SAME ROW
-                            leftnum +=1
-                        } else {i=8}
-                    }
-                    if (leftnum%2 ==0){
-                        wholeblock = false
-                    }
-                }
+                // if (squares[(y*8)+x].className ==2 && squares[(y*8)+x+1].className==2 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0) {
+                //     for (let i=0; i<width;i++){
+                //         if (squares[(y*8)+x-i].className ==2){ //AND ON SAME ROW
+                //             leftnum +=1
+                //         } else {i=8}
+                //     }
+                //     if (leftnum%2 ==0){
+                //         wholeblock = false
+                //     }
+                // }
 
                 // let i=squares[(y*8)+x] //x,y
                 // let j=squares[(y*8)+x+8]  //x,y+1
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     x+=3;
                     doneSomething =true;
                 }
-                }
+            }
         }
         
         if (doneSomething==true){
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             colouring()
         }
         // NEED TO WORK OUT HOW TO GET A DELAY AT THE END OF THIS FUNCTION (maybe with set timeout)
-        }   
+    }   
 
     function allup(){
         var rowColouring = generateRowNotFull()
@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             check = fullRowCheck();
         }
         console.log("move done")
-        // fillDown()
+        fillDown()
  
     }
     
@@ -493,7 +493,9 @@ document.addEventListener('DOMContentLoaded',()=>{
         }
         var emptycount = 0;
         for (let empty=64; empty<width*height;empty++){
-            if (squares[64].className=0){emptycount+=1}}
+            if (squares[64].className=0)
+                {emptycount+=1}
+            }
         if (emptycount == 8){moveDone()}
 
 
