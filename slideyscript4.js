@@ -244,8 +244,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     }   
 
     function moveDone(){
-        allup()
         fillDown()
+        allup()
         var check = fullRowCheck();
         if (check !=="notFull"){
             deleteRow(check)
@@ -259,6 +259,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             check = fullRowCheck();
         }
         console.log("move done")
+        fillDown()
         fillDown()
  
     }
