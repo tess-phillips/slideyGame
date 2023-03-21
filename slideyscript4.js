@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     function fillDown(){
         var wholeblock=true;
         var doneSomething = false;
-        var num =0; 
+        var leftnum =0; 
         for (let y=0; y< height-2; y++) {
             for (let x=0; x< width; x++){ 
                 wholeblock =true;
@@ -149,16 +149,16 @@ document.addEventListener('DOMContentLoaded',()=>{
                 //     console.log("false")
                 // } WAS WORKING BETTER BEFORE FIND PREVIOUS VERSION
 
-            //     if (squares[(y*8)+x].className ==2 && squares[(y*8)+x+1].className==2 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0) {
-            //         for (let i=0; i<width;i++){
-            //             if (squares[(y*8)+x-i].className ==2){ //AND ON SAME ROW
-            //                 leftnum +=1
-            //             } else {i=8}
-            //         }
-            //         if (leftnum%2 ==0){
-            //             wholeblock = false
-            //         }
-            // }
+                if (squares[(y*8)+x].className ==2 && squares[(y*8)+x+1].className==2 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0) {
+                    for (let i=0; i<width;i++){
+                        if (squares[(y*8)+x-i].className ==2){ //AND ON SAME ROW
+                            leftnum +=1
+                        } else {i=8}
+                    }
+                    if (leftnum%2 ==0){
+                        wholeblock = false
+                    }
+                }
 
                 // let i=squares[(y*8)+x] //x,y
                 // let j=squares[(y*8)+x+8]  //x,y+1
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                 // let n=squares[(y*8)+x+2]; // x+2,y
                 // let o=squares[(y*8)+x+11]; // x+3,y+1
                 // let p=squares[(y*8)+x+3]; // x+3,y
-                if (squares[(y*8)+x].className ==1 && squares[(y*8)+x+8].className==0){
+                if (parseInt(squares[(y*8)+x].className) ==1 && parseInt(squares[(y*8)+x+8].className==0)){
                     squares[(y*8)+x+8].className=squares[(y*8)+x].className;
                     squares[(y*8)+x].className=0;
                     doneSomething =true;
@@ -237,8 +237,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     }   
 
     function moveDone(){
-        allup()
         fillDown()
+        allup()
         var check = fullRowCheck();
         if (check !=="notFull"){
             deleteRow(check)
