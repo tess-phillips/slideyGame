@@ -10,15 +10,10 @@ document.addEventListener('DOMContentLoaded',()=>{
         ["#FF0D72", "#D3D3D3"],
         ["#0DC2FF",  "#D3D3D3"],
         ["#0DFF72", "#D3D3D3"], 
-        // "#F538FF",  
-        ["#FF8E0D",  "#D3D3D3"],
-        // "#FFE138",  
-        // "#3877FF",  
+        ["#FF8E0D",  "#D3D3D3"]
        ];  
     
     function generateRow(){ //can make this shorter with || 
-        //can add the "non-empty clause to this function so all new rows not full" 
-        // i.e  if (i>7 && fullRowCheck(row)=="notFull") {return row;} else {return }
         var i=0;
         var row = [];
         var randomNum= Math.floor(Math.random()*5);
@@ -113,8 +108,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
     
     function deleteRow(fullRow){
-        // console.log(arena)
-        // squares[fullRow]=[0,0,0,0,0,0,0,0];
         for (let x=0; x<width; x++){
             squares[(fullRow*8)+x].className=0
         }
@@ -155,8 +148,6 @@ document.addEventListener('DOMContentLoaded',()=>{
                 console.log("this needs filling down",i)
                     squares[i+8].className=1;
                     squares[i].className=0;
-
-                    // i+=1
                     doneSomething = true;
                     colouring()
                 }
@@ -170,7 +161,6 @@ document.addEventListener('DOMContentLoaded',()=>{
                     squares[i+9].className=2
                     squares[i].className=0
                     squares[i+1].className=0
-                    // i=0
                     doneSomething = true;
                     colouring()
                 }
@@ -189,7 +179,6 @@ document.addEventListener('DOMContentLoaded',()=>{
                     squares[i].className=0
                     squares[i+1].className=0
                     squares[i+2].className=0
-                    // i=0
                     doneSomething = true;
                     colouring()
 
@@ -224,90 +213,6 @@ document.addEventListener('DOMContentLoaded',()=>{
         if (doneSomething==true){console.log("fillDown")}
     }
 
-    function fillDown2(){
-        var doneSomething = false;//may need to go through and delete if don't end up using it
-        for (let y=0; y< height-2; y++) {
-            for (let x=0; x< width; x++){ 
-                wholeblock =true;
-
-                // for the 2s
-
-
-                // if (parseInt(squares[(y*8)+x].className)!=0 && parseInt(squares[(y*8)+x].className)!=1 && parseInt(squares[(y*8)+x+8].className) !=0){
-                //     var num = parseInt(squares[(y*8)+x].className)
-                //     wholeblock=false
-                //     x+=(num-1) // this is definitely not working seamlessly
-                //     console.log("false")
-                // } WAS WORKING BETTER BEFORE FIND PREVIOUS VERSION
-
-                // if (squares[(y*8)+x].className ==2 && squares[(y*8)+x+1].className==2 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0) {
-                //     for (let i=0; i<width;i++){
-                //         if (squares[(y*8)+x-i].className ==2){ //AND ON SAME ROW
-                //             leftnum +=1
-                //         } else {i=8}
-                //     }
-                //     if (leftnum%2 ==0){
-                //         wholeblock = false
-                //     }
-                // }
-
-                // let i=squares[(y*8)+x] //x,y
-                // let j=squares[(y*8)+x+8]  //x,y+1
-                // let k=squares[(y*8)+x+9]; // x+1,y+1
-                // let l=squares[(y*8)+x+10]; //x+2, y+1
-                // let m=squares[(y*8)+x+1]; //x+1,y
-                // let n=squares[(y*8)+x+2]; // x+2,y
-                // let o=squares[(y*8)+x+11]; // x+3,y+1
-                // let p=squares[(y*8)+x+3]; // x+3,y
-                if (squares[(y*8)+x].className ==1 && squares[(y*8)+x+8].className==0){
-                    squares[(y*8)+x+8].className=squares[(y*8)+x].className;
-                    squares[(y*8)+x].className=0;
-                    doneSomething =true;
-                }
-                if (squares[(y*8)+x].className ==2 && squares[(y*8)+x+1].className==2 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0){
-                    squares[(y*8)+x+8].className=squares[(y*8)+x].className;
-                    squares[(y*8)+x+9].className=squares[(y*8)+x].className
-                    squares[(y*8)+x].className=0;
-                    squares[(y*8)+x+1].className=0;
-                    x+=1;
-                    doneSomething =true;
-                }
-                if (squares[(y*8)+x].className && squares[(y*8)+x+1].className==3 && squares[(y*8)+x+2].className==3 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0&& squares[(y*8)+x+10].className==0){
-                    squares[(y*8)+x+8].className=squares[(y*8)+x].className;
-                    squares[(y*8)+x+9].className=squares[(y*8)+x].className;
-                    squares[(y*8)+x+10].className=squares[(y*8)+x].className;
-                    squares[(y*8)+x].className=0;
-                    squares[(y*8)+x+1].className=0;
-                    squares[(y*8)+x+2].className=0;
-                    x+=2;
-                    doneSomething =true;
-                }
-                if (squares[(y*8)+x].className&& squares[(y*8)+x+1].className==4 && squares[(y*8)+x+2].className==4 && squares[(y*8)+x+3].className==4 && squares[(y*8)+x+8].className==0&& squares[(y*8)+x+9].className==0&& squares[(y*8)+x+10].className==0&& squares[(y*8)+x+11].className==0){
-                    squares[(y*8)+x+8].className=squares[(y*8)+x].className;
-                    squares[(y*8)+x+9].className=squares[(y*8)+x].className;
-                    squares[(y*8)+x+10].className=squares[(y*8)+x].className;
-                    squares[(y*8)+x+11].className=squares[(y*8)+x].className;
-                    squares[(y*8)+x].className=0;
-                    squares[(y*8)+x+1].className=0;
-                    squares[(y*8)+x+2].className=0;
-                    squares[(y*8)+x+3].className=0;
-                    x+=3;
-                    doneSomething =true;
-                }
-                }
-        }
-        
-        // setTimeout(() => {
-        if (doneSomething==true){
-            for (let i=0; i<width;i++){
-                squares[i].className=0
-            }
-            console.log("filled down")
-            colouring()
-        }
-        // NEED TO WORK OUT HOW TO GET A DELAY AT THE END OF THIS FUNCTION
-        }   
-
     function allup(){
         var rowColouring = generateRowNotFull()
         for (let i = 0; i<width*height; i++){
@@ -322,34 +227,17 @@ document.addEventListener('DOMContentLoaded',()=>{
                     console.log("game over")
                     break
                 }
-            }  
-            //     if (i>71 ){
-            //         var squareColourIndex = rowColouring[j]
-            //         // squares[i].className = colours[squareColourIndex][1];
-            //         squares[i].className = squareColourIndex
-            //     }
-            // }
-            // if (i >7){
-            //     squares[i+8].className= squares[i].className
-            //     // squares[i].className=0
-            // }
-            
             }
         colouring()
         console.log("all up")
+        }
     }   
 
     function moveDone(){
         fillDown()
         allup()
         var check = fullRowCheck();
-        // if (check !=="notFull"){
-        //     deleteRow(check)
-        //     fillDown()
-        // }
-        // console.log(check, "check")
         while (check !=="notFull"){
-            // console.log(check,"not full check")
             deleteRow(check);
             fillDown();
             check = fullRowCheck();
@@ -396,8 +284,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     
     createBoard()
     moveDone()
-    // var x = squares2arena(squares)
-    // console.log(arena2squares(x))
     
     let colourBeingDragged 
     let colourBeingReplaced
@@ -412,7 +298,6 @@ document.addEventListener('DOMContentLoaded',()=>{
         colourBeingDragged = this.style.backgroundColor
         classBeingDragged = parseInt(this.className)
         squareIdBeingDragged = parseInt(this.id)
-        // console.log(squareIdBeingDragged, "being dragged")
         if (classBeingDragged==2){ // get the leftmost value of the block
             howmany2s = 0;
             for (let i=-width;i<width*2;i++){
@@ -420,33 +305,16 @@ document.addEventListener('DOMContentLoaded',()=>{
                     howmany2s +=1;
                 }
             }
-        //     if (howmany2s==2){ //make it the leftmost 2
-        //         if (squares[squareIdBeingDragged-1].className == 2){
-        //             squareIdBeingDragged -= 1
-        //             console.log(squareIdBeingDragged, "being dragged")
-        //         }
-        //     } else {} //DEAL WITH THIS LATER
-
-            // colourBeingDragged = this.style.backgroundColor
-            // classBeingDragged = this.className
-            // squareIdBeingDragged = parseInt(this.id)
         }
-        
-        // console.log(classBeingDragged, "class dragged")
-        // console.log(this.id,"dragstart")
     }
 
     function dragOver(e){
         e.preventDefault()
-        // console.log(this.id,"dragover")
     }
     function dragEnter(e){
         e.preventDefault()
-        // console.log(this.id,"dragenter")
     }
-    function dragLeave(){
-        // console.log(this.id,"dragleave")
-    
+    function dragLeave(){    
     }
 
     function validMoves(){
@@ -457,30 +325,23 @@ document.addEventListener('DOMContentLoaded',()=>{
                 (squares[squareIdBeingDragged].className == 3 && squares[squareIdBeingDragged-1].className == 3&& squares[squareIdBeingDragged-2].className == 3)||
                 (squares[squareIdBeingDragged].className == 4 && squares[squareIdBeingDragged-1].className == 4&& squares[squareIdBeingDragged-2].className == 4&& squares[squareIdBeingDragged-3].className == 4)){
                 LoR ="rightOfBlock";
-                // console.log(LoR)
             } else  if ((squares[squareIdBeingDragged].className == 2 && squares[squareIdBeingDragged+1].className == 2)||
             (squares[squareIdBeingDragged].className == 3 && squares[squareIdBeingDragged+1].className == 3&& squares[squareIdBeingDragged+2].className == 3)||
             (squares[squareIdBeingDragged].className == 4 && squares[squareIdBeingDragged+1].className == 4&& squares[squareIdBeingDragged+2].className == 4&& squares[squareIdBeingDragged+3].className == 4)){
                 LoR="leftOfBlock";
-                // console.log(LoR)
             }
             var dir = squareIdBeingReplaced-squareIdBeingDragged;
-            // console.log(dir, "postive if moving right")
             if (LoR==null){
                 for (let i=1;i<width;i++){
-                    // console.log(squares[squareIdBeingDragged-i].className,"leftclassname")
                     if (squares[squareIdBeingDragged-i].className==0 && Math.floor((squareIdBeingDragged-i)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
                         leftMove +=1;
-                        // console.log(leftMove,"left")
                         validMoves.push(squareIdBeingDragged-leftMove);
                     }
                     else {i=8}
                 }
-                // console.log(classBeingDragged, "classdrag")
                 for (let j=1;j<width;j++){
                     if (squares[squareIdBeingDragged+j].className==0 && Math.floor((squareIdBeingDragged+j)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
                         rightMove +=1;
-                        // console.log(rightMove,"right")
                         validMoves.push(squareIdBeingDragged+rightMove);
                     }
                     else {j=8}
@@ -488,10 +349,8 @@ document.addEventListener('DOMContentLoaded',()=>{
             }
             else if (LoR == "leftOfBlock"){
                 for (let i=1;i<width;i++){
-                    // console.log(squares[squareIdBeingDragged-i].className,"leftclassname")
                     if (squares[squareIdBeingDragged-i].className==0 && Math.floor((squareIdBeingDragged-i)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
                         leftMove +=1;
-                        // console.log(leftMove,"left")
                         validMoves.push(squareIdBeingDragged-leftMove);
                     }
                     else {i=8}
@@ -499,7 +358,6 @@ document.addEventListener('DOMContentLoaded',()=>{
                 for (let j=classBeingDragged;j<width;j++){
                     if (squares[squareIdBeingDragged+j].className==0 && Math.floor((squareIdBeingDragged+j)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
                         rightMove +=1;
-                        // console.log(rightMove,"right")
                         validMoves.push(squareIdBeingDragged+rightMove+(classBeingDragged-1));
                     }
                     else {j=8}
@@ -509,10 +367,8 @@ document.addEventListener('DOMContentLoaded',()=>{
             }
             else if (LoR == "rightOfBlock"){
                 for (let i=classBeingDragged;i<width;i++){
-                    // console.log(squares[squareIdBeingDragged-i].className,"leftclassname")
                     if (squares[squareIdBeingDragged-i].className==0 && Math.floor((squareIdBeingDragged-i)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
                         leftMove +=1;
-                        // console.log(leftMove,"left")
                         validMoves.push(squareIdBeingDragged-leftMove-(classBeingDragged-1));
                     }
                     else {i=8}
@@ -520,7 +376,6 @@ document.addEventListener('DOMContentLoaded',()=>{
                 for (let j=1;j<width;j++){
                     if (squares[squareIdBeingDragged+j].className==0 && Math.floor((squareIdBeingDragged+j)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
                         rightMove +=1;
-                        // console.log(rightMove,"right")
                         validMoves.push(squareIdBeingDragged+rightMove);
                     }
                     else {j=8}
@@ -548,7 +403,6 @@ document.addEventListener('DOMContentLoaded',()=>{
                 colouring()
                 moveDone()
             }
-            // console.log("1block")
         } 
         else if(direction<0 && LoRofBlock =="leftOfBlock"){
             if (validMove.includes(squareIdBeingReplaced)){ 
@@ -560,7 +414,6 @@ document.addEventListener('DOMContentLoaded',()=>{
                 colouring()
                 moveDone()
             }
-            // console.log("LL")
         }
         else if(direction>0 && LoRofBlock =="leftOfBlock"){
             if (validMove.includes(squareIdBeingReplaced)){ 
@@ -572,7 +425,6 @@ document.addEventListener('DOMContentLoaded',()=>{
                 colouring()
                 moveDone()
             }
-            // console.log("RL")
         } 
         else if(direction>0 && LoRofBlock=="rightOfBlock"){
             if (validMove.includes(squareIdBeingReplaced)){ 
@@ -583,7 +435,6 @@ document.addEventListener('DOMContentLoaded',()=>{
                 colouring()
                 moveDone()
             }
-            // console.log("RR")
         }
         else if(direction<0 && LoRofBlock=="rightOfBlock"){
             if (validMove.includes(squareIdBeingReplaced)){ 
@@ -596,11 +447,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                 colouring()
                 moveDone()
             }
-            // console.log("LR")
         }
-
-
-
     }
 
     function dragDropp(){
@@ -610,40 +457,12 @@ document.addEventListener('DOMContentLoaded',()=>{
         squareIdBeingReplaced = parseInt(this.id)
     }
     
-    
     squares.forEach(btn =>btn.addEventListener('dragstart',dragStart))
     squares.forEach(btn =>btn.addEventListener('dragend',dragEnd))
     squares.forEach(btn =>btn.addEventListener('dragover',dragOver))
     squares.forEach(btn =>btn.addEventListener('dragenter',dragEnter))
     squares.forEach(btn =>btn.addEventListener('dragleave',dragLeave))
     squares.forEach(btn =>btn.addEventListener('drop',dragDropp))
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     //end doc
     })
