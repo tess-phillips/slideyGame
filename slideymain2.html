@@ -2,13 +2,45 @@
  <html lang="en" dir ="ltr">  
  <head>  
    <meta charset="UTF-8">  
-   <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">   -->
-   <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">   -->
+   <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
    <title>Slidey Game</title>  
+   <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
    <link href="slideystyles2.css" rel="stylesheet"/>
    <script src="slideyscript4.js"></script>
   </head>  
  <body>
-    <div class="grid"></div>
+   <h2>Slidey</h2>
+     <button id="instructions">Instructions</button>
+     <!--Button for instructions -->
+     <div id="myModal" class="modal">
+       <div class="modal-content">
+         <span class="close">&times;</span>
+         <p>You can click and drag blocks to move them left and right.
+            <br>Blocks can only move into free space (grey).
+            <br>Blocks fall when there is free space below. 
+            <br>When a row is full the row deletes. 
+            <br>Each time a move is done the blocks all move up. 
+            <br>If the blocks reach the top the game is over. 
+            <br>You can't move blocks in the bottom row, but use it to know where blocks might fall next.
+            <br>This game goes on forever if you're good enough!
+            <br>Compare high scores with your friends.
+         </p>
+       </div>
+     </div>
+     <div id="myModal2" class="modal">
+      <div class="modal-content">
+        <span class="close2">&times;</span>
+        <p>GAME OVER
+         <br>Close this pop up to play again.
+         <br><h3>Score:<span id="score">0</span></h3>
+        </p>
+      </div>
+    </div>
+     <div id="button-container">
+       <h3>Score:<span id="score">0</span></h3>
+       <button id="reset">Reset</button>
+     </div>   
+     <div class="grid"></div>
  </body>
 </html>

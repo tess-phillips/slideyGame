@@ -12,6 +12,30 @@ document.addEventListener('DOMContentLoaded',()=>{
         ["#0DFF72", "#D3D3D3"], 
         ["#FF8E0D",  "#D3D3D3"]
        ];  
+
+    const resetButton = document.getElementById("reset");
+    const modal = document.getElementById("myModal");
+    const instructionsButton = document.getElementById("instructions");
+    const span = document.getElementsByClassName("close")[0];
+    const modal2 = document.getElementById("myModal2");
+    const span2 = document.getElementsByClassName("close2")[0];
+
+
+    resetButton.addEventListener("click", () => {
+        location.reload();
+    });
+    
+    instructionsButton.addEventListener("click", () => {
+        modal.style.display = "block";
+    });
+    
+    span.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    span2.addEventListener("click", () => {
+    location.reload();
+    });
     
     function generateRow(){ //can make this shorter with || 
         var i=0;
@@ -99,11 +123,9 @@ document.addEventListener('DOMContentLoaded',()=>{
                 }
             }
             if (rowCount ==width){
-                // console.log("fullRowCheck",y)
                 return y
             }
         }
-        // console.log("fullRowCheck","notFull")
         return "notFull"
     }
     
@@ -116,13 +138,12 @@ document.addEventListener('DOMContentLoaded',()=>{
                 squares[(i*8)+x].className= squares[(i*8)+x-8].className
                 squares[(i*8)+x-8].className=0
             }
-        score+=10;
-        console.log("row deleted")
         colouring()
-        }   
+        } 
+        score+=1;
+        var newscore = document.getElementById("score")
+        newscore.innerHTML = score;
     }
-
-
 
     function colouring(){
         for (let i=0;i<width*height;i++){
@@ -143,9 +164,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         var doneSomething = false;
         for (let i=0;i<(height*width)-(width*2)+1;i++){
 
-            //if 1 and nothing below
             if (squares[i].className==1&& squares[i+8].className==0){
-                console.log("this needs filling down",i)
                     squares[i+8].className=1;
                     squares[i].className=0;
                     doneSomething = true;
@@ -164,7 +183,6 @@ document.addEventListener('DOMContentLoaded',()=>{
                     doneSomething = true;
                     colouring()
                 }
-                else{console.log("error in 2s",i,i+8)}
             }
 
             else if (squares[i].className==3 && squares[i+1].className==3&& squares[i+2].className==3){
@@ -172,7 +190,6 @@ document.addEventListener('DOMContentLoaded',()=>{
                     i+=2
                 }
                 else if (squares[i+8].className==0 && squares[i+9].className==0 && squares[i+10].className==0){
-                    console.log("this needs filling down",i,3, "do")
                     squares[i+8].className=3
                     squares[i+9].className=3
                     squares[i+10].className=3
@@ -183,16 +200,13 @@ document.addEventListener('DOMContentLoaded',()=>{
                     colouring()
 
                 }
-                else{console.log("error in 3s",i,i+8)}
             }
 
             else if (squares[i].className==4&& squares[i+1].className==4&& squares[i+2].className==4&& squares[i+3].className==4){
-                console.log(4)
                 if (squares[i+8].className!=0 || squares[i+9].className!=0 || squares[i+10].className!=0|| squares[i+11].className!=0){
                     i+=3
                 }
                 else if (squares[i+8].className==0 && squares[i+9].className==0 && squares[i+10].className==0 && squares[i+11].className==0){
-                    console.log("this needs filling down",i)
                     squares[i+8].className=4
                     squares[i+9].className=4
                     squares[i+10].className=4
@@ -206,11 +220,10 @@ document.addEventListener('DOMContentLoaded',()=>{
                     colouring()
 
                 }
-                else{console.log("error in 4s",i,i+8)}
             }
 
         } 
-        if (doneSomething==true){console.log("fillDown")}
+        if (doneSomething==true){}
     }
 
     function allup(){
@@ -222,14 +235,13 @@ document.addEventListener('DOMContentLoaded',()=>{
             else {
                 squares[i].className = rowColouring[i-72]
             }
-            for (let j = 0; j<width; j++){
+            for (let j = 0; j<width; j++){ //game over
                 if (squares[i].className != 0 && i<8){
-                    console.log("game over")
+                    modal2.style.display = "block";
                     break
                 }
             }
         colouring()
-        console.log("all up")
         }
     }   
 
@@ -241,9 +253,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             deleteRow(check);
             fillDown();
             check = fullRowCheck();
-            console.log("move done")
         }
-        console.log("move done")
         fillDown() 
         fillDown()
     }
@@ -291,7 +301,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     let squareIdBeingReplaced
     let classBeingReplaced
     let classBeingDragged
-    let howmany2s
     let LoR
     
     function dragStart(){
@@ -383,13 +392,11 @@ document.addEventListener('DOMContentLoaded',()=>{
                 if (leftMove>0)
                 {validMoves.push(squareIdBeingDragged-classBeingDragged+1)}
             }
-            console.log(validMoves, "valid moves are")
             var bigList = [validMoves,LoR,dir]
             return bigList
     }
     
     function dragEnd(){
-        console.log(this.id,"dragend");
         var myList = validMoves()
         var validMove = myList[0];
         var LoRofBlock = myList[1];
@@ -406,7 +413,6 @@ document.addEventListener('DOMContentLoaded',()=>{
         } 
         else if(direction<0 && LoRofBlock =="leftOfBlock"){
             if (validMove.includes(squareIdBeingReplaced)){ 
-                console.log("valid")
                 for (let k=0; k<classBeingDragged;k++){
                     squares[squareIdBeingReplaced+k].className = classBeingDragged
                     squares[squareIdBeingDragged+k].className = classBeingReplaced
@@ -438,7 +444,6 @@ document.addEventListener('DOMContentLoaded',()=>{
         }
         else if(direction<0 && LoRofBlock=="rightOfBlock"){
             if (validMove.includes(squareIdBeingReplaced)){ 
-                console.log("valid")
                 for (let k=0; k<classBeingDragged;k++){
                     squares[squareIdBeingDragged-k].className =0;
                     squares[squareIdBeingReplaced-k].className = classBeingDragged
@@ -451,7 +456,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
 
     function dragDropp(){
-        console.log(this.id,"dragdrop")
         classBeingReplaced = parseInt(this.className)
         colourBeingReplaced = this.style.backgroundColor
         squareIdBeingReplaced = parseInt(this.id)
@@ -464,6 +468,5 @@ document.addEventListener('DOMContentLoaded',()=>{
     squares.forEach(btn =>btn.addEventListener('dragleave',dragLeave))
     squares.forEach(btn =>btn.addEventListener('drop',dragDropp))
     
-    //end doc
     })
     
