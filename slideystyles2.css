@@ -1,3 +1,7 @@
+html{
+    zoom: 60%;
+}
+
 .grid{
     height: 700px;
     width: 560px;
