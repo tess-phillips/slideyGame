@@ -141,8 +141,9 @@ document.addEventListener('DOMContentLoaded',()=>{
         colouring()
         } 
         score+=1;
-        var newscore = document.getElementById("score")
-        newscore.innerHTML = score;
+        console.log("updated score")
+        document.getElementById("score").innerHTML = score;
+        // newscore.innerHTML = score;
     }
 
     function colouring(){
@@ -238,6 +239,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             for (let j = 0; j<width; j++){ //game over
                 if (squares[i].className != 0 && i<8){
                     modal2.style.display = "block";
+                    document.getElementById("scorefinal").innerHTML = score;
                     break
                 }
             }
@@ -259,6 +261,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
     
     function createBoard(){//to add a fill down and delete
+        document.getElementById("score").innerHTML = score;
         var index1 = 0;
         var counter =0;    
         for (let i=0;i<height;i++){
@@ -307,14 +310,6 @@ document.addEventListener('DOMContentLoaded',()=>{
         colourBeingDragged = this.style.backgroundColor
         classBeingDragged = parseInt(this.className)
         squareIdBeingDragged = parseInt(this.id)
-        if (classBeingDragged==2){ // get the leftmost value of the block
-            howmany2s = 0;
-            for (let i=-width;i<width*2;i++){
-                if (squares[squareIdBeingDragged+i].className==2 && Math.floor((squareIdBeingDragged+i)/8) == Math.floor((squareIdBeingDragged)/8) && (squareIdBeingDragged+i)<72 && (squareIdBeingDragged+i)>0){//AND ON THE SAME ROW?
-                    howmany2s +=1;
-                }
-            }
-        }
     }
 
     function dragOver(e){
