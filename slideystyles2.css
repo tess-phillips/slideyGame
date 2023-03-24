@@ -95,3 +95,28 @@ color: #000;
 text-decoration: none;
 cursor: pointer;
 }
+
+a {
+    color: blue;
+  }
+  
+a:visited {
+    color: yellowgreen;
+  }
+  
+a:hover {
+    color: orange;
+  }
+  
+a:active {
+    color: blue;
+  }
+
+footer{
+text-align: center;
+color: white;
+position:fixed;
+bottom: 0;
+width: 100%;
+background: white;
+}
