@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
 
     function validMoves(){
-            var leftMove = 0; rightMove = 0;
+            var leftMove = 0; var rightMove = 0;
             var validMoves = [];
             LoR = null;
             if ((squares[squareIdBeingDragged].className == 2 && squares[squareIdBeingDragged-1].className == 2)||
