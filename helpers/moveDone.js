@@ -1,6 +1,6 @@
 export function moveDone(){
     fillDown(global)
-    allup()
+    allUp(global)
     var check = fullRowCheck(global);
     while (check !=="notFull"){
         deleteRow(global, check);

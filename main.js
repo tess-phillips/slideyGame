@@ -3,6 +3,7 @@ import { fullRowCheck } from "./helpers/fullRowCheck.js";
 import { deleteRow } from "./helpers/deleteRow.js";
 import { colouring } from "./helpers/colouring.js";
 import { fillDown } from "./helpers/fillDown.js";
+import { allUp } from "./helpers/allUp.js";
 
 
 document.addEventListener('DOMContentLoaded',()=>{
@@ -55,31 +56,11 @@ document.addEventListener('DOMContentLoaded',()=>{
 
     span2.addEventListener("click", () => {
     location.reload();
-    });
-
-    function allup(){
-        var rowColouring = generateRowNotFull()
-        for (let i = 0; i<global.width*global.height; i++){
-            if (i<72){
-                global.squares[i].className= global.squares[i+8].className
-            }
-            else {
-                global.squares[i].className = rowColouring[i-72]
-            }
-            for (let j = 0; j<global.width; j++){ //game over
-                if (global.squares[i].className != 0 && i<8){
-                    modal2.style.display = "block";
-                    document.getElementById("scorefinal").innerHTML = global.score;
-                    break
-                }
-            }
-        colouring(global)
-        }
-    }   
+    }); 
 
     function moveDone(){
         fillDown(global)
-        allup()
+        allUp(global)
         var check = fullRowCheck(global);
         while (check !=="notFull"){
             deleteRow(global, check);
