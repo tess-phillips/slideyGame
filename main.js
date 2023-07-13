@@ -1,4 +1,4 @@
-import { generateRow } from "./helpers/generateRow.js";
+import { generateRowNotFull } from "./helpers/generateRowNotFull.js";
 
 document.addEventListener('DOMContentLoaded',()=>{
     const grid = document.querySelector('.grid');
@@ -38,25 +38,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     span2.addEventListener("click", () => {
     location.reload();
     });
-    
-
-    
-    function generateRowNotFull(){
-        var notFull = false;
-        var zeroCount = 0;
-        var row = generateRow();
-        while (notFull==false){
-        for (let i=0; i<7;i++){
-            if (row[i]==0){
-            zeroCount += 1;}
-        }
-        if (zeroCount == 8 || zeroCount == 0){
-            row = generateRow()}
-        else {
-            notFull = true;
-            return row}
-        }
-    }   
     
     function fullRowCheck(){ //arena[y][x]
         //checks the arena for any full rows to be deleted
