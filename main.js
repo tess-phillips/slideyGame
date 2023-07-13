@@ -2,6 +2,8 @@ import { generateRowNotFull } from "./helpers/generateRowNotFull.js";
 import { fullRowCheck } from "./helpers/fullRowCheck.js";
 import { deleteRow } from "./helpers/deleteRow.js";
 import { colouring } from "./helpers/colouring.js";
+import { fillDown } from "./helpers/fillDown.js";
+
 
 document.addEventListener('DOMContentLoaded',()=>{
     const grid = document.querySelector('.grid');
@@ -55,72 +57,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     location.reload();
     });
 
-    function fillDown(){
-        var doneSomething = false;
-        for (let i=0;i<(global.height*global.width)-(global.width*2)+1;i++){
-
-            if (global.squares[i].className==1&& global.squares[i+8].className==0){
-                global.squares[i+8].className=1;
-                global.squares[i].className=0;
-                    doneSomething = true;
-                    colouring(global)
-                }
-            
-            else if (global.squares[i].className==2 && global.squares[i+1].className==2){
-                if (global.squares[i+8].className!=0 || global.squares[i+9].className!=0){
-                    i+=1
-                }
-                else if (global.squares[i+8].className==0 && global.squares[i+9].className==0){
-                    global.squares[i+8].className=2
-                    global.squares[i+9].className=2
-                    global.squares[i].className=0
-                    global.squares[i+1].className=0
-                    doneSomething = true;
-                    colouring(global)
-                }
-            }
-
-            else if (global.squares[i].className==3 && global.squares[i+1].className==3&& global.squares[i+2].className==3){
-                if (global.squares[i+8].className!=0 || global.squares[i+9].className!=0 || global.squares[i+10].className!=0){
-                    i+=2
-                }
-                else if (global.squares[i+8].className==0 && global.squares[i+9].className==0 && global.squares[i+10].className==0){
-                    global.squares[i+8].className=3
-                    global.squares[i+9].className=3
-                    global.squares[i+10].className=3
-                    global.squares[i].className=0
-                    global.squares[i+1].className=0
-                    global.squares[i+2].className=0
-                    doneSomething = true;
-                    colouring(global)
-
-                }
-            }
-
-            else if (global.squares[i].className==4&& global.squares[i+1].className==4&& global.squares[i+2].className==4&& global.squares[i+3].className==4){
-                if (global.squares[i+8].className!=0 || global.squares[i+9].className!=0 || global.squares[i+10].className!=0|| global.squares[i+11].className!=0){
-                    i+=3
-                }
-                else if (global.squares[i+8].className==0 && global.squares[i+9].className==0 && global.squares[i+10].className==0 && global.squares[i+11].className==0){
-                    global.squares[i+8].className=4
-                    global.squares[i+9].className=4
-                    global.squares[i+10].className=4
-                    global.squares[i+11].className=4
-                    global.squares[i].className=0
-                    global.squares[i+1].className=0
-                    global.squares[i+2].className=0
-                    global.squares[i+3].className=0
-                    // i=0
-                    doneSomething = true;
-                    colouring(global)
-
-                }
-            }
-
-        } 
-        if (doneSomething==true){}
-    }
-
     function allup(){
         var rowColouring = generateRowNotFull()
         for (let i = 0; i<global.width*global.height; i++){
@@ -142,16 +78,16 @@ document.addEventListener('DOMContentLoaded',()=>{
     }   
 
     function moveDone(){
-        fillDown()
+        fillDown(global)
         allup()
         var check = fullRowCheck(global);
         while (check !=="notFull"){
             deleteRow(global, check);
-            fillDown();
+            fillDown(global);
             check = fullRowCheck(global);
         }
-        fillDown() 
-        fillDown()
+        fillDown(global) 
+        fillDown(global)
     }
     
     function createBoard(){//to add a fill down and delete
