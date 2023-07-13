@@ -1,25 +1,35 @@
 import { generateRowNotFull } from "./helpers/generateRowNotFull.js";
 import { fullRowCheck } from "./helpers/fullRowCheck.js";
+import { deleteRow } from "./helpers/deleteRow.js";
+import { colouring } from "./helpers/colouring.js";
 
 document.addEventListener('DOMContentLoaded',()=>{
     const grid = document.querySelector('.grid');
     // const width = 8;
     // const height = 10;
     // const squares = [];
-    let score=0;
+    // let score=0;
     const global = {
         height: 10,
         width:8,
-        squares: []
+        squares: [],
+        colours: [  
+            ['grey','grey'] ,
+            ["#FF0D72", "#D3D3D3"],
+            ["#0DC2FF",  "#D3D3D3"],
+            ["#0DFF72", "#D3D3D3"], 
+            ["#FF8E0D",  "#D3D3D3"]
+           ],
+        score:0
     }
     
-    var colours = [  
-        ['grey','grey'] ,
-        ["#FF0D72", "#D3D3D3"],
-        ["#0DC2FF",  "#D3D3D3"],
-        ["#0DFF72", "#D3D3D3"], 
-        ["#FF8E0D",  "#D3D3D3"]
-       ];  
+    // var colours = [  
+    //     ['grey','grey'] ,
+    //     ["#FF0D72", "#D3D3D3"],
+    //     ["#0DC2FF",  "#D3D3D3"],
+    //     ["#0DFF72", "#D3D3D3"], 
+    //     ["#FF8E0D",  "#D3D3D3"]
+    //    ];  
 
     const resetButton = document.getElementById("reset");
     const modal = document.getElementById("myModal");
@@ -44,38 +54,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     span2.addEventListener("click", () => {
     location.reload();
     });
-    
-    function deleteRow(fullRow){
-        for (let x=0; x<global.width; x++){
-            global.squares[(fullRow*8)+x].className=0
-        }
-        for (let i=fullRow;i>0;i--){
-            for (let x=0; x<global.width; x++){
-                global.squares[(i*8)+x].className= global.squares[(i*8)+x-8].className
-                global.squares[(i*8)+x-8].className=0
-            }
-        colouring()
-        } 
-        score+=1;
-        console.log("updated score")
-        document.getElementById("score").innerHTML = score;
-        // newscore.innerHTML = score;
-    }
-
-    function colouring(){
-        for (let i=0;i<global.width*global.height;i++){
-            if (i<72){
-                global.squares[i].style.backgroundColor=colours[global.squares[i].className][0]
-                if (colours[global.squares[i].className][0]=="grey"){
-                    global.squares[i].setAttribute("draggable",false)
-                } else {global.squares[i].setAttribute("draggable",true)}
-        } else {
-            global.squares[i].style.backgroundColor=colours[global.squares[i].className][1]
-            global.squares[i].setAttribute("draggable",false)
-        }
-
-        }
-    }
 
     function fillDown(){
         var doneSomething = false;
@@ -85,7 +63,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                 global.squares[i+8].className=1;
                 global.squares[i].className=0;
                     doneSomething = true;
-                    colouring()
+                    colouring(global)
                 }
             
             else if (global.squares[i].className==2 && global.squares[i+1].className==2){
@@ -98,7 +76,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     global.squares[i].className=0
                     global.squares[i+1].className=0
                     doneSomething = true;
-                    colouring()
+                    colouring(global)
                 }
             }
 
@@ -114,7 +92,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     global.squares[i+1].className=0
                     global.squares[i+2].className=0
                     doneSomething = true;
-                    colouring()
+                    colouring(global)
 
                 }
             }
@@ -134,7 +112,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     global.squares[i+3].className=0
                     // i=0
                     doneSomething = true;
-                    colouring()
+                    colouring(global)
 
                 }
             }
@@ -155,11 +133,11 @@ document.addEventListener('DOMContentLoaded',()=>{
             for (let j = 0; j<global.width; j++){ //game over
                 if (global.squares[i].className != 0 && i<8){
                     modal2.style.display = "block";
-                    document.getElementById("scorefinal").innerHTML = score;
+                    document.getElementById("scorefinal").innerHTML = global.score;
                     break
                 }
             }
-        colouring()
+        colouring(global)
         }
     }   
 
@@ -168,7 +146,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         allup()
         var check = fullRowCheck(global);
         while (check !=="notFull"){
-            deleteRow(check);
+            deleteRow(global, check);
             fillDown();
             check = fullRowCheck(global);
         }
@@ -177,7 +155,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
     
     function createBoard(){//to add a fill down and delete
-        document.getElementById("score").innerHTML = score;
+        document.getElementById("score").innerHTML = global.score;
         var index1 = 0;
         var counter =0;    
         for (let i=0;i<global.height;i++){
@@ -197,9 +175,9 @@ document.addEventListener('DOMContentLoaded',()=>{
                 var squareColourIndex = rowColouring[j]
                 square.setAttribute("id",counter)
                 counter +=1
-                square.style.backgroundColor = colours[squareColourIndex][index1];
+                square.style.backgroundColor = global.colours[squareColourIndex][index1];
                 square.className = squareColourIndex;
-                if (colours[squareColourIndex][index1] !=='grey' && index1==0){
+                if (global.colours[squareColourIndex][index1] !=='grey' && index1==0){
                     square.setAttribute("draggable",true)
                 }
                 else{
@@ -318,7 +296,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     global.squares[squareIdBeingReplaced+k].className = classBeingDragged
                     global.squares[squareIdBeingDragged+k].className = classBeingReplaced
                 }
-                colouring()
+                colouring(global)
                 moveDone()
             }
         } 
@@ -328,7 +306,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     global.squares[squareIdBeingReplaced+k].className = classBeingDragged
                     global.squares[squareIdBeingDragged+k].className = classBeingReplaced
                 }
-                colouring()
+                colouring(global)
                 moveDone()
             }
         }
@@ -339,7 +317,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     global.squares[squareIdBeingReplaced+k].className = classBeingDragged
                 }
                 global.squares[squareIdBeingReplaced].className = classBeingDragged
-                colouring()
+                colouring(global)
                 moveDone()
             }
         } 
@@ -349,7 +327,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     global.squares[squareIdBeingDragged-k].className =0;
                     global.squares[squareIdBeingReplaced-k].className = classBeingDragged
                 }
-                colouring()
+                colouring(global)
                 moveDone()
             }
         }
@@ -360,7 +338,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     global.squares[squareIdBeingReplaced-k].className = classBeingDragged
                 }
                 global.squares[squareIdBeingReplaced].className = classBeingDragged
-                colouring()
+                colouring(global)
                 moveDone()
             }
         }
