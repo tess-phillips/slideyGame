@@ -1,11 +1,17 @@
 import { generateRowNotFull } from "./helpers/generateRowNotFull.js";
+import { fullRowCheck } from "./helpers/fullRowCheck.js";
 
 document.addEventListener('DOMContentLoaded',()=>{
     const grid = document.querySelector('.grid');
-    const width = 8;
-    const height = 10;
-    const squares = [];
+    // const width = 8;
+    // const height = 10;
+    // const squares = [];
     let score=0;
+    const global = {
+        height: 10,
+        width:8,
+        squares: []
+    }
     
     var colours = [  
         ['grey','grey'] ,
@@ -39,30 +45,14 @@ document.addEventListener('DOMContentLoaded',()=>{
     location.reload();
     });
     
-    function fullRowCheck(){ //arena[y][x]
-        //checks the arena for any full rows to be deleted
-        for (let y=0; y< height; y++) {
-            var rowCount =0;
-            for (let x=0; x< width; x++){
-                if (squares[(y*8)+x].className !== '0'){
-                    rowCount +=1;
-                }
-            }
-            if (rowCount ==width){
-                return y
-            }
-        }
-        return "notFull"
-    }
-    
     function deleteRow(fullRow){
-        for (let x=0; x<width; x++){
-            squares[(fullRow*8)+x].className=0
+        for (let x=0; x<global.width; x++){
+            global.squares[(fullRow*8)+x].className=0
         }
         for (let i=fullRow;i>0;i--){
-            for (let x=0; x<width; x++){
-                squares[(i*8)+x].className= squares[(i*8)+x-8].className
-                squares[(i*8)+x-8].className=0
+            for (let x=0; x<global.width; x++){
+                global.squares[(i*8)+x].className= global.squares[(i*8)+x-8].className
+                global.squares[(i*8)+x-8].className=0
             }
         colouring()
         } 
@@ -73,15 +63,15 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
 
     function colouring(){
-        for (let i=0;i<width*height;i++){
+        for (let i=0;i<global.width*global.height;i++){
             if (i<72){
-                squares[i].style.backgroundColor=colours[squares[i].className][0]
-                if (colours[squares[i].className][0]=="grey"){
-                    squares[i].setAttribute("draggable",false)
-                } else {squares[i].setAttribute("draggable",true)}
+                global.squares[i].style.backgroundColor=colours[global.squares[i].className][0]
+                if (colours[global.squares[i].className][0]=="grey"){
+                    global.squares[i].setAttribute("draggable",false)
+                } else {global.squares[i].setAttribute("draggable",true)}
         } else {
-            squares[i].style.backgroundColor=colours[squares[i].className][1]
-            squares[i].setAttribute("draggable",false)
+            global.squares[i].style.backgroundColor=colours[global.squares[i].className][1]
+            global.squares[i].setAttribute("draggable",false)
         }
 
         }
@@ -89,59 +79,59 @@ document.addEventListener('DOMContentLoaded',()=>{
 
     function fillDown(){
         var doneSomething = false;
-        for (let i=0;i<(height*width)-(width*2)+1;i++){
+        for (let i=0;i<(global.height*global.width)-(global.width*2)+1;i++){
 
-            if (squares[i].className==1&& squares[i+8].className==0){
-                    squares[i+8].className=1;
-                    squares[i].className=0;
+            if (global.squares[i].className==1&& global.squares[i+8].className==0){
+                global.squares[i+8].className=1;
+                global.squares[i].className=0;
                     doneSomething = true;
                     colouring()
                 }
             
-            else if (squares[i].className==2 && squares[i+1].className==2){
-                if (squares[i+8].className!=0 || squares[i+9].className!=0){
+            else if (global.squares[i].className==2 && global.squares[i+1].className==2){
+                if (global.squares[i+8].className!=0 || global.squares[i+9].className!=0){
                     i+=1
                 }
-                else if (squares[i+8].className==0 && squares[i+9].className==0){
-                    squares[i+8].className=2
-                    squares[i+9].className=2
-                    squares[i].className=0
-                    squares[i+1].className=0
+                else if (global.squares[i+8].className==0 && global.squares[i+9].className==0){
+                    global.squares[i+8].className=2
+                    global.squares[i+9].className=2
+                    global.squares[i].className=0
+                    global.squares[i+1].className=0
                     doneSomething = true;
                     colouring()
                 }
             }
 
-            else if (squares[i].className==3 && squares[i+1].className==3&& squares[i+2].className==3){
-                if (squares[i+8].className!=0 || squares[i+9].className!=0 || squares[i+10].className!=0){
+            else if (global.squares[i].className==3 && global.squares[i+1].className==3&& global.squares[i+2].className==3){
+                if (global.squares[i+8].className!=0 || global.squares[i+9].className!=0 || global.squares[i+10].className!=0){
                     i+=2
                 }
-                else if (squares[i+8].className==0 && squares[i+9].className==0 && squares[i+10].className==0){
-                    squares[i+8].className=3
-                    squares[i+9].className=3
-                    squares[i+10].className=3
-                    squares[i].className=0
-                    squares[i+1].className=0
-                    squares[i+2].className=0
+                else if (global.squares[i+8].className==0 && global.squares[i+9].className==0 && global.squares[i+10].className==0){
+                    global.squares[i+8].className=3
+                    global.squares[i+9].className=3
+                    global.squares[i+10].className=3
+                    global.squares[i].className=0
+                    global.squares[i+1].className=0
+                    global.squares[i+2].className=0
                     doneSomething = true;
                     colouring()
 
                 }
             }
 
-            else if (squares[i].className==4&& squares[i+1].className==4&& squares[i+2].className==4&& squares[i+3].className==4){
-                if (squares[i+8].className!=0 || squares[i+9].className!=0 || squares[i+10].className!=0|| squares[i+11].className!=0){
+            else if (global.squares[i].className==4&& global.squares[i+1].className==4&& global.squares[i+2].className==4&& global.squares[i+3].className==4){
+                if (global.squares[i+8].className!=0 || global.squares[i+9].className!=0 || global.squares[i+10].className!=0|| global.squares[i+11].className!=0){
                     i+=3
                 }
-                else if (squares[i+8].className==0 && squares[i+9].className==0 && squares[i+10].className==0 && squares[i+11].className==0){
-                    squares[i+8].className=4
-                    squares[i+9].className=4
-                    squares[i+10].className=4
-                    squares[i+11].className=4
-                    squares[i].className=0
-                    squares[i+1].className=0
-                    squares[i+2].className=0
-                    squares[i+3].className=0
+                else if (global.squares[i+8].className==0 && global.squares[i+9].className==0 && global.squares[i+10].className==0 && global.squares[i+11].className==0){
+                    global.squares[i+8].className=4
+                    global.squares[i+9].className=4
+                    global.squares[i+10].className=4
+                    global.squares[i+11].className=4
+                    global.squares[i].className=0
+                    global.squares[i+1].className=0
+                    global.squares[i+2].className=0
+                    global.squares[i+3].className=0
                     // i=0
                     doneSomething = true;
                     colouring()
@@ -155,15 +145,15 @@ document.addEventListener('DOMContentLoaded',()=>{
 
     function allup(){
         var rowColouring = generateRowNotFull()
-        for (let i = 0; i<width*height; i++){
+        for (let i = 0; i<global.width*global.height; i++){
             if (i<72){
-                squares[i].className= squares[i+8].className
+                global.squares[i].className= global.squares[i+8].className
             }
             else {
-                squares[i].className = rowColouring[i-72]
+                global.squares[i].className = rowColouring[i-72]
             }
-            for (let j = 0; j<width; j++){ //game over
-                if (squares[i].className != 0 && i<8){
+            for (let j = 0; j<global.width; j++){ //game over
+                if (global.squares[i].className != 0 && i<8){
                     modal2.style.display = "block";
                     document.getElementById("scorefinal").innerHTML = score;
                     break
@@ -176,11 +166,11 @@ document.addEventListener('DOMContentLoaded',()=>{
     function moveDone(){
         fillDown()
         allup()
-        var check = fullRowCheck();
+        var check = fullRowCheck(global);
         while (check !=="notFull"){
             deleteRow(check);
             fillDown();
-            check = fullRowCheck();
+            check = fullRowCheck(global);
         }
         fillDown() 
         fillDown()
@@ -190,7 +180,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         document.getElementById("score").innerHTML = score;
         var index1 = 0;
         var counter =0;    
-        for (let i=0;i<height;i++){
+        for (let i=0;i<global.height;i++){
             if (i<7){
                 var rowColouring = [0,0,0,0,0,0,0,0]
             }
@@ -202,7 +192,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                 var rowColouring = generateRowNotFull()
 
             }
-            for (let j=0;j<width;j++){
+            for (let j=0;j<global.width;j++){
                 const square = document.createElement("div");
                 var squareColourIndex = rowColouring[j]
                 square.setAttribute("id",counter)
@@ -216,7 +206,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     square.setAttribute("draggable",false)
                 }
                 grid.appendChild(square)
-                squares.push(square)
+                global.squares.push(square)
             }
         }
     }
@@ -251,26 +241,26 @@ document.addEventListener('DOMContentLoaded',()=>{
             var leftMove = 0; var rightMove = 0;
             var validMoves = [];
             LoR = null;
-            if ((squares[squareIdBeingDragged].className == 2 && squares[squareIdBeingDragged-1].className == 2)||
-                (squares[squareIdBeingDragged].className == 3 && squares[squareIdBeingDragged-1].className == 3&& squares[squareIdBeingDragged-2].className == 3)||
-                (squares[squareIdBeingDragged].className == 4 && squares[squareIdBeingDragged-1].className == 4&& squares[squareIdBeingDragged-2].className == 4&& squares[squareIdBeingDragged-3].className == 4)){
+            if ((global.squares[squareIdBeingDragged].className == 2 && global.squares[squareIdBeingDragged-1].className == 2)||
+                (global.squares[squareIdBeingDragged].className == 3 && global.squares[squareIdBeingDragged-1].className == 3&& global.squares[squareIdBeingDragged-2].className == 3)||
+                (global.squares[squareIdBeingDragged].className == 4 && global.squares[squareIdBeingDragged-1].className == 4&& global.squares[squareIdBeingDragged-2].className == 4&& global.squares[squareIdBeingDragged-3].className == 4)){
                 LoR ="rightOfBlock";
-            } else  if ((squares[squareIdBeingDragged].className == 2 && squares[squareIdBeingDragged+1].className == 2)||
-            (squares[squareIdBeingDragged].className == 3 && squares[squareIdBeingDragged+1].className == 3&& squares[squareIdBeingDragged+2].className == 3)||
-            (squares[squareIdBeingDragged].className == 4 && squares[squareIdBeingDragged+1].className == 4&& squares[squareIdBeingDragged+2].className == 4&& squares[squareIdBeingDragged+3].className == 4)){
+            } else  if ((global.squares[squareIdBeingDragged].className == 2 && global.squares[squareIdBeingDragged+1].className == 2)||
+            (global.squares[squareIdBeingDragged].className == 3 && global.squares[squareIdBeingDragged+1].className == 3&& global.squares[squareIdBeingDragged+2].className == 3)||
+            (global.squares[squareIdBeingDragged].className == 4 && global.squares[squareIdBeingDragged+1].className == 4&& global.squares[squareIdBeingDragged+2].className == 4&& global.squares[squareIdBeingDragged+3].className == 4)){
                 LoR="leftOfBlock";
             }
             var dir = squareIdBeingReplaced-squareIdBeingDragged;
             if (LoR==null){
-                for (let i=1;i<width;i++){
-                    if (squares[squareIdBeingDragged-i].className==0 && Math.floor((squareIdBeingDragged-i)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
+                for (let i=1;i<global.width;i++){
+                    if (global.squares[squareIdBeingDragged-i].className==0 && Math.floor((squareIdBeingDragged-i)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
                         leftMove +=1;
                         validMoves.push(squareIdBeingDragged-leftMove);
                     }
                     else {i=8}
                 }
-                for (let j=1;j<width;j++){
-                    if (squares[squareIdBeingDragged+j].className==0 && Math.floor((squareIdBeingDragged+j)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
+                for (let j=1;j<global.width;j++){
+                    if (global.squares[squareIdBeingDragged+j].className==0 && Math.floor((squareIdBeingDragged+j)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
                         rightMove +=1;
                         validMoves.push(squareIdBeingDragged+rightMove);
                     }
@@ -278,15 +268,15 @@ document.addEventListener('DOMContentLoaded',()=>{
                 }
             }
             else if (LoR == "leftOfBlock"){
-                for (let i=1;i<width;i++){
-                    if (squares[squareIdBeingDragged-i].className==0 && Math.floor((squareIdBeingDragged-i)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
+                for (let i=1;i<global.width;i++){
+                    if (global.squares[squareIdBeingDragged-i].className==0 && Math.floor((squareIdBeingDragged-i)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
                         leftMove +=1;
                         validMoves.push(squareIdBeingDragged-leftMove);
                     }
                     else {i=8}
                 }
-                for (let j=classBeingDragged;j<width;j++){
-                    if (squares[squareIdBeingDragged+j].className==0 && Math.floor((squareIdBeingDragged+j)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
+                for (let j=classBeingDragged;j<global.width;j++){
+                    if (global.squares[squareIdBeingDragged+j].className==0 && Math.floor((squareIdBeingDragged+j)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
                         rightMove +=1;
                         validMoves.push(squareIdBeingDragged+rightMove+(classBeingDragged-1));
                     }
@@ -296,15 +286,15 @@ document.addEventListener('DOMContentLoaded',()=>{
                 {validMoves.push(squareIdBeingDragged+classBeingDragged-1)}
             }
             else if (LoR == "rightOfBlock"){
-                for (let i=classBeingDragged;i<width;i++){
-                    if (squares[squareIdBeingDragged-i].className==0 && Math.floor((squareIdBeingDragged-i)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
+                for (let i=classBeingDragged;i<global.width;i++){
+                    if (global.squares[squareIdBeingDragged-i].className==0 && Math.floor((squareIdBeingDragged-i)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
                         leftMove +=1;
                         validMoves.push(squareIdBeingDragged-leftMove-(classBeingDragged-1));
                     }
                     else {i=8}
                 }
-                for (let j=1;j<width;j++){
-                    if (squares[squareIdBeingDragged+j].className==0 && Math.floor((squareIdBeingDragged+j)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
+                for (let j=1;j<global.width;j++){
+                    if (global.squares[squareIdBeingDragged+j].className==0 && Math.floor((squareIdBeingDragged+j)/8) == Math.floor((squareIdBeingDragged)/8)){//AND ON THE SAME ROW?
                         rightMove +=1;
                         validMoves.push(squareIdBeingDragged+rightMove);
                     }
@@ -325,8 +315,8 @@ document.addEventListener('DOMContentLoaded',()=>{
         if (LoRofBlock==null){ 
             if (validMove.includes(squareIdBeingReplaced)){ 
                 for (let k=0; k<classBeingDragged;k++){
-                    squares[squareIdBeingReplaced+k].className = classBeingDragged
-                    squares[squareIdBeingDragged+k].className = classBeingReplaced
+                    global.squares[squareIdBeingReplaced+k].className = classBeingDragged
+                    global.squares[squareIdBeingDragged+k].className = classBeingReplaced
                 }
                 colouring()
                 moveDone()
@@ -335,8 +325,8 @@ document.addEventListener('DOMContentLoaded',()=>{
         else if(direction<0 && LoRofBlock =="leftOfBlock"){
             if (validMove.includes(squareIdBeingReplaced)){ 
                 for (let k=0; k<classBeingDragged;k++){
-                    squares[squareIdBeingReplaced+k].className = classBeingDragged
-                    squares[squareIdBeingDragged+k].className = classBeingReplaced
+                    global.squares[squareIdBeingReplaced+k].className = classBeingDragged
+                    global.squares[squareIdBeingDragged+k].className = classBeingReplaced
                 }
                 colouring()
                 moveDone()
@@ -345,10 +335,10 @@ document.addEventListener('DOMContentLoaded',()=>{
         else if(direction>0 && LoRofBlock =="leftOfBlock"){
             if (validMove.includes(squareIdBeingReplaced)){ 
                 for (let k=0; k<classBeingDragged;k++){
-                    squares[squareIdBeingDragged+k].className =0;
-                    squares[squareIdBeingReplaced+k].className = classBeingDragged
+                    global.squares[squareIdBeingDragged+k].className =0;
+                    global.squares[squareIdBeingReplaced+k].className = classBeingDragged
                 }
-                squares[squareIdBeingReplaced].className = classBeingDragged
+                global.squares[squareIdBeingReplaced].className = classBeingDragged
                 colouring()
                 moveDone()
             }
@@ -356,8 +346,8 @@ document.addEventListener('DOMContentLoaded',()=>{
         else if(direction>0 && LoRofBlock=="rightOfBlock"){
             if (validMove.includes(squareIdBeingReplaced)){ 
                 for (let k=0; k<classBeingDragged;k++){
-                    squares[squareIdBeingDragged-k].className =0;
-                    squares[squareIdBeingReplaced-k].className = classBeingDragged
+                    global.squares[squareIdBeingDragged-k].className =0;
+                    global.squares[squareIdBeingReplaced-k].className = classBeingDragged
                 }
                 colouring()
                 moveDone()
@@ -366,10 +356,10 @@ document.addEventListener('DOMContentLoaded',()=>{
         else if(direction<0 && LoRofBlock=="rightOfBlock"){
             if (validMove.includes(squareIdBeingReplaced)){ 
                 for (let k=0; k<classBeingDragged;k++){
-                    squares[squareIdBeingDragged-k].className =0;
-                    squares[squareIdBeingReplaced-k].className = classBeingDragged
+                    global.squares[squareIdBeingDragged-k].className =0;
+                    global.squares[squareIdBeingReplaced-k].className = classBeingDragged
                 }
-                squares[squareIdBeingReplaced].className = classBeingDragged
+                global.squares[squareIdBeingReplaced].className = classBeingDragged
                 colouring()
                 moveDone()
             }
@@ -382,12 +372,12 @@ document.addEventListener('DOMContentLoaded',()=>{
         squareIdBeingReplaced = parseInt(this.id)
     }
     
-    squares.forEach(btn =>btn.addEventListener('dragstart',dragStart))
-    squares.forEach(btn =>btn.addEventListener('dragend',dragEnd))
-    squares.forEach(btn =>btn.addEventListener('dragover',dragOver))
-    squares.forEach(btn =>btn.addEventListener('dragenter',dragEnter))
-    squares.forEach(btn =>btn.addEventListener('dragleave',dragLeave))
-    squares.forEach(btn =>btn.addEventListener('drop',dragDropp))
+    global.squares.forEach(btn =>btn.addEventListener('dragstart',dragStart))
+    global.squares.forEach(btn =>btn.addEventListener('dragend',dragEnd))
+    global.squares.forEach(btn =>btn.addEventListener('dragover',dragOver))
+    global.squares.forEach(btn =>btn.addEventListener('dragenter',dragEnter))
+    global.squares.forEach(btn =>btn.addEventListener('dragleave',dragLeave))
+    global.squares.forEach(btn =>btn.addEventListener('drop',dragDropp))
     
     })
     
