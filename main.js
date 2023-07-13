@@ -1,4 +1,4 @@
-import { generateRow } from "./helpers/generateRow.js"
+import { generateRow } from "./helpers/generateRow.js";
 
 document.addEventListener('DOMContentLoaded',()=>{
     const grid = document.querySelector('.grid');
