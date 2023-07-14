@@ -6,8 +6,9 @@
 //     globalDrag.classBeingDragged,
 //     globalDrag.LoR } from "./variables.js"]
 
-export function dragStart(globalDrag){
-    globalDrag.colourBeingDragged = this.style.backgroundColor
-    globalDrag.classBeingDragged = parseInt(this.className)
-    globalDrag.squareIdBeingDragged = parseInt(this.id)
+export function dragStart(globalDrag,thisElt){
+    console.log("start")
+    globalDrag.colourBeingDragged = thisElt.style.backgroundColor
+    globalDrag.classBeingDragged = parseInt(thisElt.className)
+    globalDrag.squareIdBeingDragged = parseInt(thisElt.id)
 }

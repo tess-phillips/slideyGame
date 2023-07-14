@@ -67,13 +67,19 @@ document.addEventListener('DOMContentLoaded',()=>{
     createBoard(global)
     moveDone(global)
     
-    // global.squares.forEach(btn =>btn.addEventListener('dragstart',dragStart(globalDrag,this)))
-    global.squares.forEach(btn =>btn.addEventListener('dragstart',console.log("start")))
-    // global.squares.forEach(btn =>btn.addEventListener('dragend',dragEnd(globalDrag,global)))
-    // global.squares.forEach(btn =>btn.addEventListener('dragover',dragOver))
-    // global.squares.forEach(btn =>btn.addEventListener('dragenter',dragEnter))
-    // global.squares.forEach(btn =>btn.addEventListener('dragleave',dragLeave))
-    // global.squares.forEach(btn =>btn.addEventListener('drop',dragDropp(globalDrag)))
+    global.squares.forEach(btn => btn.addEventListener('dragstart', (event) => {
+        dragStart(globalDrag, event.target);
+      }));
+      
+    global.squares.forEach(btn =>btn.addEventListener('dragend', () => dragEnd(globalDrag,global)))
+    global.squares.forEach(btn =>btn.addEventListener('dragover',dragOver))
+    global.squares.forEach(btn =>btn.addEventListener('dragenter',dragEnter))
+    global.squares.forEach(btn =>btn.addEventListener('dragleave',dragLeave))
     
-    })
+    global.squares.forEach(btn =>btn.addEventListener('drop', (event) => {
+        dragDropp(globalDrag, event.target);
+    }));
+
+
+})
     

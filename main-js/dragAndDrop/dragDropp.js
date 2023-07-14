@@ -6,8 +6,9 @@
 //     globalDrag.classBeingDragged,
 //     globalDrag.LoR } from "./variables.js"
 
-export function dragDropp(globalDrag){
-    globalDrag.classBeingReplaced = parseInt(this.className)
-    globalDrag.colourBeingReplacd = this.style.backgroundColor
-    globalDrag.squareIdBeingReplaced = parseInt(this.id)
+export function dragDropp(globalDrag, thisElt){
+    console.log("drop")
+    globalDrag.classBeingReplaced = parseInt(thisElt.className)
+    globalDrag.colourBeingReplacd = thisElt.style.backgroundColor
+    globalDrag.squareIdBeingReplaced = parseInt(thisElt.id)
 }
