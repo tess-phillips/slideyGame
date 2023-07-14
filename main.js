@@ -7,15 +7,6 @@ import { dragEnter } from "./main-js/dragAndDrop/dragEnter.js";
 import { dragLeave } from "./main-js/dragAndDrop/dragLeave.js";
 import { dragEnd } from "./main-js/dragAndDrop/dragEnd.js";
 import { dragDropp } from "./main-js/dragAndDrop/dragDropp.js";
-import { validMoves } from "./main-js/dragAndDrop/validMoves.js";
-// import {   globalDrag.colourBeingDragged,
-//     globalDrag.colourBeingReplacd,
-//     globalDrag.squareIdBeingDragged,
-//     globalDrag.squareIdBeingReplaced,
-//     globalDrag.classBeingReplaced,
-//     globalDrag.classBeingDragged,
-//     globalDrag.LoR } from "./main-js/dragAndDrop/variables.js"
-
 
 document.addEventListener('DOMContentLoaded',()=>{
 
@@ -75,7 +66,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     global.squares.forEach(btn =>btn.addEventListener('dragover',dragOver))
     global.squares.forEach(btn =>btn.addEventListener('dragenter',dragEnter))
     global.squares.forEach(btn =>btn.addEventListener('dragleave',dragLeave))
-    
+
     global.squares.forEach(btn =>btn.addEventListener('drop', (event) => {
         dragDropp(globalDrag, event.target);
     }));

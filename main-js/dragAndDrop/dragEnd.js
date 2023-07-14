@@ -1,16 +1,8 @@
-// import {   globalDrag.colourBeingDragged,
-//     globalDrag.colourBeingReplacd,
-//     globalDrag.squareIdBeingDragged,
-//     globalDrag.squareIdBeingReplaced,
-//     globalDrag.classBeingReplaced,
-//     globalDrag.classBeingDragged,
-//     globalDrag.LoR } from "./variables.js"
 import { validMoves } from "./validMoves.js";
 import { colouring } from "../../helpers/pureHelpers/colouring.js";
 import { moveDone } from "../moveDone.js";
 
 export function dragEnd(globalDrag,global){
-    console.log("end")
     var myList = validMoves(globalDrag,global)
     var validMove = myList[0];
     var LoRofBlock = myList[1];

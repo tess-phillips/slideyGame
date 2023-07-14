@@ -12,6 +12,5 @@ export function deleteRow(global, fullRow){
     colouring(global)
     } 
     global.score+=1;
-    console.log("updated score")
     document.getElementById("score").innerHTML = global.score;
 }

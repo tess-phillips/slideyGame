@@ -1,11 +1,3 @@
-// import {   globalDrag.colourBeingDragged,
-//     globalDrag.colourBeingReplacd,
-//     globalDrag.squareIdBeingDragged,
-//     globalDrag.squareIdBeingReplaced,
-//     globalDrag.classBeingReplaced,
-//     globalDrag.classBeingDragged,
-//     globalDrag.LoR } from "./variables.js"
-
 export function validMoves(globalDrag, global){
     var leftMove = 0; var rightMove = 0;
     var validMoves = [];
