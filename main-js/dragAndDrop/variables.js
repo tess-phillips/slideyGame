@@ -1,5 +1,3 @@
-// variables.js
-
 let colourBeingDragged;
 let colourBeingReplaced;
 let squareIdBeingDragged;

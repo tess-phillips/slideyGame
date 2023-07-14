@@ -8,7 +8,13 @@ import { dragLeave } from "./main-js/dragAndDrop/dragLeave.js";
 import { dragEnd } from "./main-js/dragAndDrop/dragEnd.js";
 import { dragDropp } from "./main-js/dragAndDrop/dragDropp.js";
 import { validMoves } from "./main-js/dragAndDrop/validMoves.js";
-// import { variables } from "./main-js/dragAndDrop/variables.js"
+import {   colourBeingDragged,
+    colourBeingReplaced,
+    squareIdBeingDragged,
+    squareIdBeingReplaced,
+    classBeingReplaced,
+    classBeingDragged,
+    LoR } from "./main-js/dragAndDrop/variables.js"
 
 
 document.addEventListener('DOMContentLoaded',()=>{
