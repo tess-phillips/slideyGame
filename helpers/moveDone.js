@@ -1,3 +1,8 @@
+import { fillDown } from "./fillDown.js";
+import { allUp } from "./allUp.js";
+import { fullRowCheck } from "./pureHelpers/fullRowCheck.js";
+import { deleteRow } from "./deleteRow.js";
+
 export function moveDone(global){
     fillDown(global)
     allUp(global)

@@ -1,9 +1,10 @@
 import { generateRowNotFull } from "./helpers/generateRowNotFull.js";
-import { fullRowCheck } from "./helpers/fullRowCheck.js";
+import { fullRowCheck } from "./helpers/pureHelpers/fullRowCheck.js";
 import { deleteRow } from "./helpers/deleteRow.js";
-import { colouring } from "./helpers/colouring.js";
+import { colouring } from "./helpers/pureHelpers/colouring.js";
 import { fillDown } from "./helpers/fillDown.js";
 import { allUp } from "./helpers/allUp.js";
+import { moveDone } from "./helpers/moveDone.js";
 
 
 document.addEventListener('DOMContentLoaded',()=>{

@@ -1,4 +1,4 @@
-import { colouring } from "./colouring.js";
+import { colouring } from "./pureHelpers/colouring.js";
 
 export function deleteRow(global, fullRow){
     for (let x=0; x<global.width; x++){

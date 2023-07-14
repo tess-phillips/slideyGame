@@ -1,5 +1,5 @@
 import { generateRowNotFull } from "./generateRowNotFull.js";
-import { colouring } from "./colouring.js";
+import { colouring } from "./pureHelpers/colouring.js";
 
 export function allUp(global){
     var rowColouring = generateRowNotFull()

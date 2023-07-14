@@ -1,4 +1,4 @@
-import { colouring } from "./colouring.js";
+import { colouring } from "./pureHelpers/colouring.js";
 
 export function fillDown(global){
     var doneSomething = false;

@@ -1,4 +1,4 @@
-import { generateRow } from "./generateRow.js";
+import { generateRow } from "./pureHelpers/generateRow.js";
 
 export function generateRowNotFull(){
     var notFull = false;
