@@ -5,10 +5,11 @@ import { colouring } from "./helpers/pureHelpers/colouring.js";
 import { fillDown } from "./helpers/fillDown.js";
 import { allUp } from "./helpers/allUp.js";
 import { moveDone } from "./helpers/moveDone.js";
+import { createBoard } from "./helpers/createBoard.js";
 
 
 document.addEventListener('DOMContentLoaded',()=>{
-    const grid = document.querySelector('.grid');
+    // const grid = document.querySelector('.grid');
     // const width = 8;
     // const height = 10;
     // const squares = [];
@@ -59,42 +60,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     location.reload();
     }); 
     
-    function createBoard(){//to add a fill down and delete
-        document.getElementById("score").innerHTML = global.score;
-        var index1 = 0;
-        var counter =0;    
-        for (let i=0;i<global.height;i++){
-            if (i<7){
-                var rowColouring = [0,0,0,0,0,0,0,0]
-            }
-            else if (i==9){
-                var rowColouring = generateRowNotFull()
-                index1 = 1;
-            }
-            else {
-                var rowColouring = generateRowNotFull()
-
-            }
-            for (let j=0;j<global.width;j++){
-                const square = document.createElement("div");
-                var squareColourIndex = rowColouring[j]
-                square.setAttribute("id",counter)
-                counter +=1
-                square.style.backgroundColor = global.colours[squareColourIndex][index1];
-                square.className = squareColourIndex;
-                if (global.colours[squareColourIndex][index1] !=='grey' && index1==0){
-                    square.setAttribute("draggable",true)
-                }
-                else{
-                    square.setAttribute("draggable",false)
-                }
-                grid.appendChild(square)
-                global.squares.push(square)
-            }
-        }
-    }
-    
-    createBoard()
+    createBoard(global)
     moveDone(global)
     
     let colourBeingDragged 
