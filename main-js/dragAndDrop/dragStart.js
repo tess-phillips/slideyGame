@@ -4,12 +4,10 @@
 //     globalDrag.squareIdBeingReplaced,
 //     globalDrag.classBeingReplaced,
 //     globalDrag.classBeingDragged,
-//     globalDrag.LoR } from "./variables.js"
+//     globalDrag.LoR } from "./variables.js"]
 
 export function dragStart(globalDrag){
-    if (this){
-        globalDrag.colourBeingDragged = this.style.backgroundColor
-        globalDrag.classBeingDragged = parseInt(this.className)
-        globalDrag.squareIdBeingDragged = parseInt(this.id)
-    }
+    globalDrag.colourBeingDragged = this.style.backgroundColor
+    globalDrag.classBeingDragged = parseInt(this.className)
+    globalDrag.squareIdBeingDragged = parseInt(this.id)
 }

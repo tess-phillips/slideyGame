@@ -10,7 +10,6 @@ import { colouring } from "../../helpers/pureHelpers/colouring.js";
 import { moveDone } from "../moveDone.js";
 
 export function dragEnd(globalDrag,global){
-    if (globalDrag.classBeingDragged == undefined){return}
     var myList = validMoves(globalDrag,global)
     var validMove = myList[0];
     var LoRofBlock = myList[1];
