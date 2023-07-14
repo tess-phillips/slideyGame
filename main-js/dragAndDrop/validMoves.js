@@ -4,7 +4,7 @@ import {   colourBeingDragged,
     squareIdBeingReplaced,
     classBeingReplaced,
     classBeingDragged,
-    LoR } from "variables.js"
+    LoR } from "./variables.js"
 
 export function validMoves(){
     var leftMove = 0; var rightMove = 0;

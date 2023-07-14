@@ -4,7 +4,7 @@ import {   colourBeingDragged,
     squareIdBeingReplaced,
     classBeingReplaced,
     classBeingDragged,
-    LoR } from "variables.js"
+    LoR } from "./variables.js"
 
 export function dragDropp(){
     classBeingReplaced = parseInt(this.className)

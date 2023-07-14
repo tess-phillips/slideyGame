@@ -4,8 +4,10 @@ import {   colourBeingDragged,
     squareIdBeingReplaced,
     classBeingReplaced,
     classBeingDragged,
-    LoR } from "variables.js"
+    LoR } from "./variables.js"
 import { validMoves } from "./validMoves.js";
+import { colouring } from "../../helpers/pureHelpers/colouring.js";
+import { moveDone } from "../moveDone.js";
 
 export function dragEnd(){
     var myList = validMoves()

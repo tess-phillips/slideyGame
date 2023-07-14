@@ -8,9 +8,17 @@ import { dragLeave } from "./main-js/dragAndDrop/dragLeave.js";
 import { dragEnd } from "./main-js/dragAndDrop/dragEnd.js";
 import { dragDropp } from "./main-js/dragAndDrop/dragDropp.js";
 import { validMoves } from "./main-js/dragAndDrop/validMoves.js";
+// import { variables } from "./main-js/dragAndDrop/variables.js"
 
 
 document.addEventListener('DOMContentLoaded',()=>{
+
+    const resetButton = document.getElementById("reset");
+    const modal = document.getElementById("myModal");
+    const instructionsButton = document.getElementById("instructions");
+    const span = document.getElementsByClassName("close")[0];
+    const span2 = document.getElementsByClassName("close2")[0];
+
     const global = {
         height: 10,
         width:8,
@@ -24,13 +32,6 @@ document.addEventListener('DOMContentLoaded',()=>{
            ],
         score:0
     }
-
-    const resetButton = document.getElementById("reset");
-    const modal = document.getElementById("myModal");
-    const instructionsButton = document.getElementById("instructions");
-    const span = document.getElementsByClassName("close")[0];
-    const span2 = document.getElementsByClassName("close2")[0];
-
 
     resetButton.addEventListener("click", () => {
         location.reload();
@@ -50,25 +51,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     
     createBoard(global)
     moveDone(global)
-    
-    // let colourBeingDragged 
-    // let colourBeingReplaced
-    // let squareIdBeingDragged
-    // let squareIdBeingReplaced
-    // let classBeingReplaced
-    // let classBeingDragged
-    // let LoR
-    
-
-
-
-
-
-
-
-    
-   
-
     
     global.squares.forEach(btn =>btn.addEventListener('dragstart',dragStart))
     global.squares.forEach(btn =>btn.addEventListener('dragend',dragEnd))
