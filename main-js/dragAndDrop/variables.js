@@ -1,17 +1,17 @@
-let colourBeingDragged;
-let colourBeingReplaced;
-let squareIdBeingDragged;
-let squareIdBeingReplaced;
-let classBeingReplaced;
-let classBeingDragged;
-let LoR;
+// let globalDrag.colourBeingDragged;
+// let globalDrag.colourBeingReplacd;
+// let globalDrag.squareIdBeingDragged;
+// let globalDrag.squareIdBeingReplaced;
+// let globalDrag.classBeingReplaced;
+// let globalDrag.classBeingDragged;
+// let globalDragglobalDrag.LoR;
 
-export {
-  colourBeingDragged,
-  colourBeingReplaced,
-  squareIdBeingDragged,
-  squareIdBeingReplaced,
-  classBeingReplaced,
-  classBeingDragged,
-  LoR
-};
+// export {
+//   globalDrag.colourBeingDragged,
+//   globalDrag.colourBeingReplacd,
+//   globalDrag.squareIdBeingDragged,
+//   globalDrag.squareIdBeingReplaced,
+//   globalDrag.classBeingReplaced,
+//   globalDrag.classBeingDragged,
+//   globalDragglobalDrag.LoR
+// };

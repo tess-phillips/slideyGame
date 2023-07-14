@@ -8,13 +8,13 @@ import { dragLeave } from "./main-js/dragAndDrop/dragLeave.js";
 import { dragEnd } from "./main-js/dragAndDrop/dragEnd.js";
 import { dragDropp } from "./main-js/dragAndDrop/dragDropp.js";
 import { validMoves } from "./main-js/dragAndDrop/validMoves.js";
-import {   colourBeingDragged,
-    colourBeingReplaced,
-    squareIdBeingDragged,
-    squareIdBeingReplaced,
-    classBeingReplaced,
-    classBeingDragged,
-    LoR } from "./main-js/dragAndDrop/variables.js"
+// import {   globalDrag.colourBeingDragged,
+//     globalDrag.colourBeingReplacd,
+//     globalDrag.squareIdBeingDragged,
+//     globalDrag.squareIdBeingReplaced,
+//     globalDrag.classBeingReplaced,
+//     globalDrag.classBeingDragged,
+//     globalDrag.LoR } from "./main-js/dragAndDrop/variables.js"
 
 
 document.addEventListener('DOMContentLoaded',()=>{
@@ -38,6 +38,15 @@ document.addEventListener('DOMContentLoaded',()=>{
            ],
         score:0
     }
+    const globalDrag = {
+        colourBeingDragged: undefined,
+        colourBeingReplacd: undefined,
+        squareIdBeingDragged: undefined,
+        squareIdBeingReplaced: undefined,
+        classBeingReplaced: undefined,
+        classBeingDragged: undefined,
+        LoR: undefined,
+    }
 
     resetButton.addEventListener("click", () => {
         location.reload();
@@ -58,12 +67,12 @@ document.addEventListener('DOMContentLoaded',()=>{
     createBoard(global)
     moveDone(global)
     
-    global.squares.forEach(btn =>btn.addEventListener('dragstart',dragStart))
-    global.squares.forEach(btn =>btn.addEventListener('dragend',dragEnd))
+    global.squares.forEach(btn =>btn.addEventListener('dragstart',dragStart(globalDrag)))
+    global.squares.forEach(btn =>btn.addEventListener('dragend',dragEnd(globalDrag,global)))
     global.squares.forEach(btn =>btn.addEventListener('dragover',dragOver))
     global.squares.forEach(btn =>btn.addEventListener('dragenter',dragEnter))
     global.squares.forEach(btn =>btn.addEventListener('dragleave',dragLeave))
-    global.squares.forEach(btn =>btn.addEventListener('drop',dragDropp))
+    global.squares.forEach(btn =>btn.addEventListener('drop',dragDropp(globalDrag)))
     
     })
     

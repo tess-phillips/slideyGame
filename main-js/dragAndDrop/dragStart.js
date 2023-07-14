@@ -1,13 +1,15 @@
-import {   colourBeingDragged,
-    colourBeingReplaced,
-    squareIdBeingDragged,
-    squareIdBeingReplaced,
-    classBeingReplaced,
-    classBeingDragged,
-    LoR } from "./variables.js"
+// import {   globalDrag.colourBeingDragged,
+//     globalDrag.colourBeingReplacd,
+//     globalDrag.squareIdBeingDragged,
+//     globalDrag.squareIdBeingReplaced,
+//     globalDrag.classBeingReplaced,
+//     globalDrag.classBeingDragged,
+//     globalDrag.LoR } from "./variables.js"
 
-export function dragStart(){
-    colourBeingDragged = this.style.backgroundColor
-    classBeingDragged = parseInt(this.className)
-    squareIdBeingDragged = parseInt(this.id)
+export function dragStart(globalDrag){
+    if (this){
+        globalDrag.colourBeingDragged = this.style.backgroundColor
+        globalDrag.classBeingDragged = parseInt(this.className)
+        globalDrag.squareIdBeingDragged = parseInt(this.id)
+    }
 }
