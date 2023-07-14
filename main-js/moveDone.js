@@ -14,4 +14,5 @@ export function moveDone(global){
     }
     fillDown(global) 
     fillDown(global)
+    fillDown(global)
 }
