@@ -36,6 +36,33 @@ color: black;
 font-size: 15px;
 }
 
+#block1 {
+  height: 50px;
+  width: 50px;
+  background-color: #FF0D72;
+}
+#block2{
+  height: 50px;
+  width: 100px;
+  background-color: #0DC2FF;
+}
+#block3{
+  height: 50px;
+  width: 150px;
+  background-color: #0DFF72;
+}
+#block4{
+  height: 50px;
+  width: 200px;
+  background-color: #FF8E0D;
+}
+#block-of-blocks{
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  gap:5px;
+}
+
 #score {
 font-family: "Press Start 2P", monospace;
 color: black;
