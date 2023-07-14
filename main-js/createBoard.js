@@ -1,4 +1,4 @@
-import { generateRowNotFull } from "./generateRowNotFull.js";
+import { generateRowNotFull } from "../helpers/generateRowNotFull.js";
 
 export function createBoard(global){//to add a fill down and delete
     document.getElementById("score").innerHTML = global.score;

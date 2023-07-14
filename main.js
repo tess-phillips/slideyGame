@@ -4,8 +4,8 @@ import { deleteRow } from "./helpers/deleteRow.js";
 import { colouring } from "./helpers/pureHelpers/colouring.js";
 import { fillDown } from "./helpers/fillDown.js";
 import { allUp } from "./helpers/allUp.js";
-import { moveDone } from "./helpers/moveDone.js";
-import { createBoard } from "./helpers/createBoard.js";
+import { moveDone } from "./main-js/moveDone.js";
+import { createBoard } from "./main-js/createBoard.js";
 
 
 document.addEventListener('DOMContentLoaded',()=>{
