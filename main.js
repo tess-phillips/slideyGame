@@ -57,19 +57,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     span2.addEventListener("click", () => {
     location.reload();
     }); 
-
-    function moveDone(){
-        fillDown(global)
-        allUp(global)
-        var check = fullRowCheck(global);
-        while (check !=="notFull"){
-            deleteRow(global, check);
-            fillDown(global);
-            check = fullRowCheck(global);
-        }
-        fillDown(global) 
-        fillDown(global)
-    }
     
     function createBoard(){//to add a fill down and delete
         document.getElementById("score").innerHTML = global.score;
@@ -107,7 +94,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
     
     createBoard()
-    moveDone()
+    moveDone(global)
     
     let colourBeingDragged 
     let colourBeingReplaced
@@ -214,7 +201,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     global.squares[squareIdBeingDragged+k].className = classBeingReplaced
                 }
                 colouring(global)
-                moveDone()
+                moveDone(global)
             }
         } 
         else if(direction<0 && LoRofBlock =="leftOfBlock"){
@@ -224,7 +211,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     global.squares[squareIdBeingDragged+k].className = classBeingReplaced
                 }
                 colouring(global)
-                moveDone()
+                moveDone(global)
             }
         }
         else if(direction>0 && LoRofBlock =="leftOfBlock"){
@@ -235,7 +222,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                 }
                 global.squares[squareIdBeingReplaced].className = classBeingDragged
                 colouring(global)
-                moveDone()
+                moveDone(global)
             }
         } 
         else if(direction>0 && LoRofBlock=="rightOfBlock"){
@@ -245,7 +232,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     global.squares[squareIdBeingReplaced-k].className = classBeingDragged
                 }
                 colouring(global)
-                moveDone()
+                moveDone(global)
             }
         }
         else if(direction<0 && LoRofBlock=="rightOfBlock"){
@@ -256,7 +243,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                 }
                 global.squares[squareIdBeingReplaced].className = classBeingDragged
                 colouring(global)
-                moveDone()
+                moveDone(global)
             }
         }
     }

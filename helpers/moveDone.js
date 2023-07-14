@@ -1,4 +1,4 @@
-export function moveDone(){
+export function moveDone(global){
     fillDown(global)
     allUp(global)
     var check = fullRowCheck(global);
