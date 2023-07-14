@@ -1,19 +1,9 @@
-import { generateRowNotFull } from "./helpers/generateRowNotFull.js";
-import { fullRowCheck } from "./helpers/pureHelpers/fullRowCheck.js";
-import { deleteRow } from "./helpers/deleteRow.js";
 import { colouring } from "./helpers/pureHelpers/colouring.js";
-import { fillDown } from "./helpers/fillDown.js";
-import { allUp } from "./helpers/allUp.js";
 import { moveDone } from "./main-js/moveDone.js";
 import { createBoard } from "./main-js/createBoard.js";
 
 
 document.addEventListener('DOMContentLoaded',()=>{
-    // const grid = document.querySelector('.grid');
-    // const width = 8;
-    // const height = 10;
-    // const squares = [];
-    // let score=0;
     const global = {
         height: 10,
         width:8,
@@ -27,20 +17,11 @@ document.addEventListener('DOMContentLoaded',()=>{
            ],
         score:0
     }
-    
-    // var colours = [  
-    //     ['grey','grey'] ,
-    //     ["#FF0D72", "#D3D3D3"],
-    //     ["#0DC2FF",  "#D3D3D3"],
-    //     ["#0DFF72", "#D3D3D3"], 
-    //     ["#FF8E0D",  "#D3D3D3"]
-    //    ];  
 
     const resetButton = document.getElementById("reset");
     const modal = document.getElementById("myModal");
     const instructionsButton = document.getElementById("instructions");
     const span = document.getElementsByClassName("close")[0];
-    const modal2 = document.getElementById("myModal2");
     const span2 = document.getElementsByClassName("close2")[0];
 
 

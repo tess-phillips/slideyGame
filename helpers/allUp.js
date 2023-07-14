@@ -3,6 +3,7 @@ import { colouring } from "./pureHelpers/colouring.js";
 
 export function allUp(global){
     var rowColouring = generateRowNotFull()
+    const modal2 = document.getElementById("myModal2");
     for (let i = 0; i<global.width*global.height; i++){
         if (i<72){
             global.squares[i].className= global.squares[i+8].className
