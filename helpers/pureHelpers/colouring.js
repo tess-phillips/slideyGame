@@ -1,14 +1,14 @@
-export function colouring(global){
-    for (let i=0;i<global.width*global.height;i++){
-        if (i<72){
-            global.squares[i].style.backgroundColor=global.colours[global.squares[i].className][0]
-            if (global.colours[global.squares[i].className][0]=="grey"){
-                global.squares[i].setAttribute("draggable",false)
-            } else {global.squares[i].setAttribute("draggable",true)}
-    } else {
-        global.squares[i].style.backgroundColor=global.colours[global.squares[i].className][1]
-        global.squares[i].setAttribute("draggable",false)
+export function colouring(global) {
+    const squares = global.squares;
+    const colours = global.colours;
+  
+    for (let i = 0; i < squares.length; i++) {
+      const squareToColour = squares[i];
+      const className = squareToColour.className;
+      const classColours = colours[className];
+      const isFirstGroup = i < 72;
+  
+      squareToColour.style.backgroundColor = classColours[isFirstGroup ? 0 : 1];
+      squareToColour.setAttribute("draggable", !isFirstGroup || classColours[0] !== "grey");
     }
-
-    }
-}
+  }
