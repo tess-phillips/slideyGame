@@ -74,11 +74,18 @@ document.addEventListener('DOMContentLoaded',()=>{
 
     // Touch event listeners
     global.squares.forEach(btn => btn.addEventListener('touchstart', (event) => {
+        // console.log("start",globalDrag,event.target)
+        event.preventDefault(); // Prevent default touch behavior
         dragStart(globalDrag, event.target);
     }));
-    global.squares.forEach(btn => btn.addEventListener('touchend', (event) => {
-        dragDropp(globalDrag, event.target);
+    global.squares.forEach(btn => btn.addEventListener('touchend', () => {
+        // console.log("end",globalDrag)
         dragEnd(globalDrag, global);
+    }));
+    global.squares.forEach(btn => btn.addEventListener('touchend', (event) => {
+        // console.log("drop",globalDrag,event.target);
+        event.preventDefault(); // Prevent default touch behavior
+        dragDropp(globalDrag, event.target);
     }));
     global.squares.forEach(btn => btn.addEventListener('touchmove', touchMove));
   
