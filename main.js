@@ -61,28 +61,29 @@ document.addEventListener('DOMContentLoaded',()=>{
     global.squares.forEach(btn => btn.addEventListener('dragstart', (event) => {
         dragStart(globalDrag, event.target);
       }));
-    global.squares.forEach(btn =>btn.addEventListener('dragend', () => dragEnd(globalDrag,global)))
-    global.squares.forEach(btn =>btn.addEventListener('dragover',dragOver))
-    global.squares.forEach(btn =>btn.addEventListener('dragenter',dragEnter))
-    global.squares.forEach(btn =>btn.addEventListener('dragleave',dragLeave))
     global.squares.forEach(btn =>btn.addEventListener('drop', (event) => {
         dragDropp(globalDrag, event.target);
     }));
-
-    global.squares.forEach(btn => btn.addEventListener('touchstart', (event) => {
-        // console.log("start",globalDrag,event.target)
-        event.preventDefault(); // Prevent default touch behavior
-        dragStart(globalDrag, event.target);
-    }));
-    global.squares.forEach(btn => btn.addEventListener('touchend', () => {
-        // console.log("end",globalDrag)
+    global.squares.forEach(btn => btn.addEventListener('dragend', () => {
         dragEnd(globalDrag, global);
     }));
-    global.squares.forEach(btn => btn.addEventListener('touchend', (event) => {
-        // console.log("drop",globalDrag,event.target);
-        dragDropp(globalDrag, event.target);
+    global.squares.forEach(btn =>btn.addEventListener('dragover',dragOver))
+    global.squares.forEach(btn =>btn.addEventListener('dragenter',dragEnter))
+    global.squares.forEach(btn =>btn.addEventListener('dragleave',dragLeave))
+
+
+    // Touch event listeners
+    global.squares.forEach(btn => btn.addEventListener('touchstart', (event) => {
+        dragStart(globalDrag, event.target);
     }));
-
-
+    global.squares.forEach(btn => btn.addEventListener('touchend', (event) => {
+        dragDropp(globalDrag, event.target);
+        dragEnd(globalDrag, global);
+    }));
+    global.squares.forEach(btn => btn.addEventListener('touchmove', touchMove));
+  
+    function touchMove(event) {
+        event.preventDefault();
+      }
 })
     
